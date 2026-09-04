@@ -3,6 +3,13 @@
    2. main header (white): logo left, primary nav + search right
    Mobile-first: base styles target small screens; min-width query enhances. */
 
+/* The global styles.css reserves a single-row header (height: var(--nav-height)).
+   This header is two rows (utility strip + main row), so let it size to its
+   content — otherwise the fixed height clips the logo and content overlaps it. */
+header {
+  height: auto;
+}
+
 header .nav-wrapper {
   width: 100%;
   background-color: var(--background-color, #fff);
