@@ -103,8 +103,13 @@ export default async function decorate(block) {
     if (section) section.classList.add(`nav-${role}`);
   });
 
+  const brand = nav.querySelector('.nav-brand');
+  const sections = nav.querySelector('.nav-sections');
+  const localeSection = nav.querySelector('.nav-locale');
+  const tools = nav.querySelector('.nav-tools');
+
   // brand logo link cleanup (strip any button decoration)
-  const brandLink = nav.querySelector('.nav-brand a');
+  const brandLink = brand ? brand.querySelector('a') : null;
   if (brandLink) {
     brandLink.className = '';
     const container = brandLink.closest('p');
@@ -112,21 +117,38 @@ export default async function decorate(block) {
   }
 
   // locale dropdown
-  const localeSection = nav.querySelector('.nav-locale');
   if (localeSection) decorateLocale(localeSection);
 
-  // tools: sign-in + search
-  const tools = nav.querySelector('.nav-tools');
+  // tools: add search control (rendered in the main row, not the utility strip)
   if (tools) tools.append(buildSearch());
 
-  // hamburger for mobile
+  // Two-row layout mirroring the source:
+  //   Row 1 (utility, black): Sign In + language selector, right-aligned
+  //   Row 2 (main, white): logo left, primary nav + search right
+  const utilityRow = document.createElement('div');
+  utilityRow.className = 'nav-utility';
+  const mainRow = document.createElement('div');
+  mainRow.className = 'nav-main';
+
+  // Sign In lives in the utility strip; search moves to the main row.
+  const search = tools ? tools.querySelector('.nav-search') : null;
+  if (tools) utilityRow.append(tools);
+  if (localeSection) utilityRow.append(localeSection);
+
+  if (brand) mainRow.append(brand);
+  if (sections) mainRow.append(sections);
+  if (search) mainRow.append(search);
+
+  // hamburger for mobile (in the main row)
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
     </button>`;
   hamburger.addEventListener('click', () => toggleMenu(nav));
-  nav.prepend(hamburger);
+  mainRow.prepend(hamburger);
+
+  nav.append(utilityRow, mainRow);
   nav.setAttribute('aria-expanded', 'false');
 
   // reset to closed on breakpoint change (prevents mobile state leaking to desktop)

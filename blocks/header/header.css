@@ -1,30 +1,105 @@
-/* WKND header — solid dark bar, brand + primary nav + locale + tools.
-   Mobile-first: base styles target small screens; min-width queries enhance. */
+/* WKND header — two rows:
+   1. utility strip (black): Sign In + language selector, right-aligned
+   2. main header (white): logo left, primary nav + search right
+   Mobile-first: base styles target small screens; min-width query enhances. */
 
 header .nav-wrapper {
-  background-color: var(--dark-color, #202020);
   width: 100%;
+  background-color: var(--background-color, #fff);
 }
 
 header nav {
+  font-family: var(--body-font-family);
+}
+
+/* ---- Utility strip (black) ---- */
+header nav .nav-utility {
+  box-sizing: border-box;
+  background-color: var(--dark-color, #202020);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  min-height: 38px;
+  padding: 0 16px;
+}
+
+header nav .nav-utility .nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* search input is moved to the main row; hide any stray copy in utility */
+header nav .nav-utility .nav-search { display: none; }
+
+/* ---- Language selector (in utility strip) ---- */
+header nav .nav-locale {
+  position: relative;
+}
+
+header nav .nav-locale-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  border: 0;
+  padding: 8px 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+header nav .nav-locale-toggle img {
+  width: 22px;
+  height: auto;
+}
+
+header nav .nav-locale-toggle::after {
+  content: '';
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  border: solid currentcolor;
+  border-width: 0.1em 0.1em 0 0;
+  transform: rotate(135deg);
+  transition: transform 0.2s ease;
+}
+
+header nav .nav-locale-toggle[aria-expanded='true']::after {
+  transform: rotate(-45deg);
+}
+
+header nav .nav-locale-panel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav .nav-locale:not(.open) .nav-locale-panel { display: none; }
+
+header nav .nav-locale-panel a {
+  color: #f7f7f7;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* ---- Main header (white) ---- */
+header nav .nav-main {
   box-sizing: border-box;
   display: grid;
-  grid-template:
-    'hamburger brand tools' var(--nav-height, 88px)
-    'sections sections sections' auto
-    'locale locale locale' auto / auto 1fr auto;
+  grid-template: 'hamburger brand tools' var(--nav-height, 88px) / auto 1fr auto;
   align-items: center;
   gap: 0 16px;
   max-width: 1200px;
   margin: auto;
   padding: 0 16px;
-  color: #f7f7f7;
-  font-family: var(--body-font-family);
-}
-
-header nav[aria-expanded='true'] {
-  overflow-y: auto;
-  min-height: 100dvh;
 }
 
 /* hamburger */
@@ -41,7 +116,7 @@ header nav .nav-hamburger button {
   border: 0;
   padding: 0;
   background-color: transparent;
-  color: inherit;
+  color: var(--text-color, #202020);
   cursor: pointer;
 }
 
@@ -75,11 +150,15 @@ header nav .nav-brand {
 header nav .nav-brand p { margin: 0; }
 
 header nav .nav-brand img {
-  width: 120px;
+  width: 110px;
   height: auto;
 }
 
 /* primary nav */
+header nav .nav-sections {
+  grid-area: tools;
+}
+
 header nav .nav-sections ul {
   list-style: none;
   margin: 0;
@@ -89,7 +168,7 @@ header nav .nav-sections ul {
 header nav .nav-sections li { padding: 12px 0; }
 
 header nav .nav-sections a {
-  color: #f7f7f7;
+  color: var(--text-color, #202020);
   font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
@@ -97,149 +176,68 @@ header nav .nav-sections a {
   text-decoration: none;
 }
 
-/* locale dropdown */
-header nav .nav-locale {
-  grid-area: locale;
-  position: relative;
-}
-
-header nav .nav-locale-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  border: 0;
-  padding: 4px 0;
-  background: transparent;
-  color: #f7f7f7;
-  font: inherit;
-  font-size: 14px;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-header nav .nav-locale-toggle img {
-  width: 25px;
-  height: auto;
-}
-
-/* caret after the toggle label */
-header nav .nav-locale-toggle::after {
-  content: '';
-  display: inline-block;
-  width: 0.45em;
-  height: 0.45em;
-  border: solid currentcolor;
-  border-width: 0.1em 0.1em 0 0;
-  transform: rotate(135deg);
-  transition: transform 0.2s ease;
-}
-
-header nav .nav-locale-toggle[aria-expanded='true']::after {
-  transform: rotate(-45deg);
-}
-
-/* country-group panel */
-header nav .nav-locale-panel {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-
-header nav .nav-locale:not(.open) .nav-locale-panel { display: none; }
-
-/* country group: flag + name on its own row */
-header nav .nav-locale-panel > li {
-  padding: 8px 0 12px;
-  border-bottom: 0.25px solid dimgray;
-}
-
-header nav .nav-locale-panel > li:last-child { border-bottom: none; }
-
-/* language links: inline, separated by bars */
-header nav .nav-locale-panel ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-header nav .nav-locale-panel a {
-  color: #f7f7f7;
-  font-size: 14px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-/* tools: sign-in + search */
-header nav .nav-tools {
+/* search (main row) */
+header nav .nav-main .nav-search {
   grid-area: tools;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
-header nav .nav-tools p { margin: 0; }
-
-header nav .nav-tools a {
-  color: #f7f7f7;
-  font-size: 13px;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-header nav .nav-search input {
+header nav .nav-main .nav-search input {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid rgb(255 255 255 / 40%);
-  padding: 6px 10px;
-  background: transparent;
-  color: #f7f7f7;
+  border: 0;
+  padding: 10px 14px;
+  background-color: var(--light-color, #f5f5f5);
+  color: var(--text-color, #202020);
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
 }
 
-header nav .nav-search input::placeholder { color: rgb(247 247 247 / 70%); }
+header nav .nav-main .nav-search input::placeholder {
+  color: #767676;
+  text-transform: uppercase;
+}
 
 header nav .nav-sections a:hover { text-decoration: underline; }
 
-/* country group label: flag + name (placed last to satisfy specificity order) */
-header nav .nav-locale-panel > li > p {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin: 0 0 4px;
-  color: #ebebeb;
-  font-size: 12px;
+/* utility strip tools (placed after lower-specificity rules for lint order) */
+header nav .nav-utility .nav-tools p { margin: 0; }
+
+header nav .nav-utility .nav-tools a {
+  color: #fff;
+  font-size: 13px;
   text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.04em;
 }
 
-header nav .nav-locale-panel > li > p img {
-  width: 25px;
-  height: auto;
-}
+header nav .nav-utility .nav-tools a:hover { text-decoration: underline; }
 
-/* language links: divider bars between locale links (highest specificity, last) */
-header nav .nav-locale-panel ul li:not(:last-child) a {
-  border-right: 1px solid #f7f7f7;
-  margin-right: 5px;
-  padding-right: 5px;
-}
-
-/* mobile closed state: hide the collapsible groups until hamburger opens */
+/* mobile closed state: hide primary nav + search until hamburger opens */
 header nav[aria-expanded='false'] .nav-sections,
-header nav[aria-expanded='false'] .nav-locale,
-header nav[aria-expanded='false'] .nav-tools {
+header nav[aria-expanded='false'] .nav-main .nav-search {
   display: none;
 }
 
 @media (width >= 900px) {
-  header nav {
-    grid-template:
-      'brand sections tools' var(--nav-height, 88px)
-      'brand locale tools' 0 / auto 1fr auto;
-    gap: 0 24px;
+  header nav .nav-utility {
+    padding: 0 32px;
+  }
+
+  header nav .nav-locale-panel {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 999;
+    width: 360px;
+    padding: 0 14px;
+    box-sizing: border-box;
+    background-color: var(--dark-color, #202020);
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 25%);
+  }
+
+  header nav .nav-main {
+    grid-template: 'brand sections search' var(--nav-height, 88px) / auto 1fr auto;
+    gap: 0 32px;
     padding: 0 32px;
   }
 
@@ -248,45 +246,64 @@ header nav[aria-expanded='false'] .nav-tools {
   header nav .nav-brand { justify-content: flex-start; }
 
   header nav .nav-sections {
-    display: flex;
-    justify-content: center;
+    grid-area: sections;
+    justify-self: end;
   }
 
   header nav .nav-sections ul {
     display: flex;
-    gap: 28px;
+    align-items: center;
+    gap: 32px;
   }
 
   header nav .nav-sections li { padding: 0; }
 
-  header nav .nav-locale {
-    place-self: center end;
+  header nav .nav-main .nav-search {
+    grid-area: search;
   }
 
-  header nav .nav-locale-panel {
-    position: absolute;
-    right: 0;
-    top: calc(var(--nav-height, 88px) / 2 + 20px);
-    z-index: 999;
-    width: 360px;
-    margin: 0;
-    padding: 0 14px;
-    box-sizing: border-box;
-    background-color: var(--dark-color, #202020);
-    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 25%);
-  }
+  header nav .nav-main .nav-search input { width: 200px; }
 
-  header nav .nav-tools { justify-content: flex-end; }
-
-  header nav .nav-search input { width: 160px; }
-
-  /* desktop: reveal sections/locale/tools even in closed (default) state */
+  /* desktop: primary nav + search always visible */
   header nav[aria-expanded='false'] .nav-sections,
-  header nav[aria-expanded='false'] .nav-tools {
-    display: flex;
+  header nav[aria-expanded='false'] .nav-main .nav-search {
+    display: block;
   }
 
-  header nav[aria-expanded='false'] .nav-locale {
-    display: block;
+  /* country group label: flag + name */
+  header nav .nav-locale-panel > li {
+    padding: 8px 0 12px;
+    border-bottom: 0.25px solid dimgray;
+  }
+
+  header nav .nav-locale-panel > li:last-child { border-bottom: none; }
+
+  header nav .nav-locale-panel > li > p {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 4px;
+    color: #ebebeb;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  header nav .nav-locale-panel > li > p img {
+    width: 25px;
+    height: auto;
+  }
+
+  header nav .nav-locale-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  header nav .nav-locale-panel ul li:not(:last-child) a {
+    border-right: 1px solid #f7f7f7;
+    margin-right: 5px;
+    padding-right: 5px;
   }
 }
