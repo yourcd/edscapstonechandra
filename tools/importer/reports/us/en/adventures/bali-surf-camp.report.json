@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://wknd.site/us/en/adventures/bali-surf-camp.html",
+  "path": "us/en/adventures/bali-surf-camp",
+  "timestamp": "2026-09-04T07:06:06.411Z",
+  "title": "Bali Surf Camp",
+  "template": "detail-article",
+  "blocks": [
+    "carousel-lead",
+    "columns-specs",
+    "tabs-detail",
+    "tabs-detail"
+  ]
+}

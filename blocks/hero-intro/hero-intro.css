@@ -1,0 +1,59 @@
+.hero-intro-container .hero-intro-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-intro {
+  position: relative;
+  padding: 0;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Full-bleed background image */
+.hero-intro .hero-intro-image,
+.hero-intro picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+}
+
+.hero-intro picture {
+  display: block;
+}
+
+.hero-intro img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Light overlay card holding the heading + intro copy */
+.hero-intro .hero-intro-content {
+  background-color: var(--background-color, #fff);
+  padding: 40px 32px;
+  max-width: 640px;
+  margin: 0 24px 0 0;
+}
+
+.hero-intro .hero-intro-content h1,
+.hero-intro .hero-intro-content h2 {
+  margin-top: 0;
+  color: var(--text-color, #000);
+}
+
+.hero-intro .hero-intro-content p {
+  margin-bottom: 0;
+  color: var(--text-color, #000);
+}
+
+@media (width >= 900px) {
+  .hero-intro {
+    min-height: 560px;
+  }
+
+  .hero-intro .hero-intro-content {
+    padding: 48px;
+  }
+}

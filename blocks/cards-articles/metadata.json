@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-articles",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-09-04T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en.html",
+    "originPage": "WKND locale landing page (us/en)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + title + description",
+    "cardCount": 4,
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "teaser grids of articles or adventures (image + title + short description)",
+      "recent articles / related content grids",
+      "any repeating set of linked image+text items"
+    ],
+    "notSuitableFor": [
+      "single featured item (use columns-featured)",
+      "cards without images (use cards no-images variant)",
+      "interactive/rotating content (use carousel-hero)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en", "/us/en/adventures"],
+    "reuseCount": 3,
+    "lastUsed": "2026-09-04T00:00:00.000Z"
+  }
+}

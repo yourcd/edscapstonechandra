@@ -1,0 +1,83 @@
+/*
+ * cards-team — people/team card grid variant of cards.
+ * Circular avatar + name + role + row of social links.
+ * Used on content-overview pages (e.g. About Us: contributors, guides).
+ */
+
+.cards-team > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 32px;
+}
+
+.cards-team > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+.cards-team .cards-team-card-image {
+  line-height: 0;
+  width: 175px;
+  max-width: 100%;
+}
+
+.cards-team .cards-team-card-image img {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cards-team .cards-team-card-body {
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Name */
+.cards-team .cards-team-card-body h3 {
+  margin: 8px 0 0;
+  font-size: var(--heading-font-size-s, 22px);
+}
+
+/* Role / eyebrow */
+.cards-team .cards-team-card-body h4,
+.cards-team .cards-team-card-body h5 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--body-font-size-xs, 14px);
+  color: inherit;
+}
+
+/* Social icon links row */
+.cards-team .cards-team-card-body p {
+  margin: 8px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cards-team .cards-team-card-body a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #1d1d1d;
+  color: #fff;
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+.cards-team .cards-team-card-body a:hover {
+  background-color: var(--link-hover-color, #3b63fb);
+}

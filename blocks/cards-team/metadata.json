@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-team",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-09-04T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/about-us.html",
+    "originPage": "WKND About Us overview page (content-overview template)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "team",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "circular avatar image + name + role/eyebrow + row of social links",
+    "cardCount": 4,
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "people/team grids (contributors, guides, staff, authors)",
+      "profile cards with a circular avatar, name, role, and social links",
+      "'meet the team' and contributor listing sections"
+    ],
+    "notSuitableFor": [
+      "article/adventure teaser grids with image + title + description (use cards-articles)",
+      "single featured item beside text (use columns-featured)",
+      "rotating banners (use carousel-hero)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en/about-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-04T00:00:00.000Z"
+  }
+}
