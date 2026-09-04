@@ -158,11 +158,13 @@ button.button {
   max-width: 100%;
   margin: 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
+  border-radius: 0; /* WKND buttons are square */
+  padding: 1em 2.5em;
   font: inherit;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.25;
+  text-transform: uppercase; /* WKND buttons capitalize label */
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
@@ -178,18 +180,18 @@ button.button:disabled {
 
 a.button.primary,
 button.button.primary {
-  border-color: var(--text-color);
-  background-color: var(--text-color);
-  color: var(--background-color);
+  border-color: var(--button-primary-color, #ffea00);
+  background-color: var(--button-primary-color, #ffea00);
+  color: var(--text-color);
 }
 
 a.button.primary:hover,
 a.button.primary:focus-visible,
 button.button.primary:hover,
 button.button.primary:focus-visible {
-  border-color: var(--dark-color);
-  background-color: var(--dark-color);
-  color: var(--light-color);
+  border-color: var(--button-primary-hover-color, #f0dc00);
+  background-color: var(--button-primary-hover-color, #f0dc00);
+  color: var(--text-color);
 }
 
 a.button.primary[aria-disabled="true"],
