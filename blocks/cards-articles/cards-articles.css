@@ -1,0 +1,71 @@
+/* cards-articles — WKND adventures teaser grid */
+
+/* Values extracted from source computed styles (see migration-work/cards-articles-extracted.css). */
+
+.cards-articles > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 32px 14px;
+}
+
+/* flat cards: no border / background / shadow / radius (matches source) */
+.cards-articles > ul > li {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cards-articles .cards-articles-card-image {
+  line-height: 0;
+}
+
+.cards-articles > ul > li img,
+.cards-articles .cards-articles-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 13 / 10;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.cards-articles .cards-articles-card-body {
+  margin: 12px 0 0;
+}
+
+/* title — 18px, semibold, uppercase, dark text (not link-blue) */
+.cards-articles .cards-articles-card-body h3 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.cards-articles .cards-articles-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.cards-articles .cards-articles-card-body h3 a:hover {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+/* description — 14px, uppercase, muted grey */
+.cards-articles .cards-articles-card-body p {
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-transform: uppercase;
+  color: #696969;
+}

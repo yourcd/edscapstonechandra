@@ -1,0 +1,40 @@
+{
+  "variantName": "accordion-faq",
+  "baseBlock": "accordion",
+  "version": "1.0.0",
+  "created": "2026-09-04T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/faqs.html",
+    "originPage": "WKND FAQs page (faq-page template)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "faq",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "question label + answer body (paragraph)",
+    "itemCount": 7,
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "FAQ pages with stacked expandable question/answer pairs",
+      "help/support pages with collapsible sections",
+      "any expand/collapse list of label + body-copy pairs"
+    ],
+    "notSuitableFor": [
+      "switchable side-by-side panels (use tabs / tabs-detail)",
+      "rotating imagery (use carousel-lead / carousel-hero)",
+      "single continuous body copy (use default content)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en/faqs"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-04T00:00:00.000Z"
+  }
+}

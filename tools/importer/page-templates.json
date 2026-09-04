@@ -11,7 +11,15 @@
       ],
       "coverageGaps": [],
       "description": "Overview/landing page combining a hero header with mixed content blocks and card sections",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "cards-team",
+          "instances": [
+            ".cmp-experience-fragment--contributor"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/about-us.html"
     },
     {
       "name": "detail-article",
@@ -51,7 +59,28 @@
       ],
       "coverageGaps": [],
       "description": "Single-item detail page with title banner, large lead image, and long-form body copy sections",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "carousel-lead",
+          "instances": [
+            "div.carousel.panelcontainer.cmp-carousel--mini"
+          ]
+        },
+        {
+          "name": "columns-specs",
+          "instances": [
+            "div.contentfragment.cmp-contentfragment--elements"
+          ]
+        },
+        {
+          "name": "tabs-detail",
+          "instances": [
+            "div.tabs.aem-GridColumn",
+            ".cmp-tabs"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/adventures/bali-surf-camp.html"
     },
     {
       "name": "listing-grid",
@@ -61,7 +90,21 @@
       ],
       "coverageGaps": [],
       "description": "Category listing page with a heading and a repeating grid of teaser/summary cards",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "hero-intro",
+          "instances": [
+            "div.teaser.cmp-teaser--hero"
+          ]
+        },
+        {
+          "name": "cards-articles",
+          "instances": [
+            "div.cmp-tabs__tabpanel--active div.image-list.list"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/adventures.html"
     },
     {
       "name": "faq-page",
@@ -71,7 +114,16 @@
       ],
       "coverageGaps": [],
       "description": "Informational page with a header and stacked question/answer text sections",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "accordion-faq",
+          "instances": [
+            "div.accordion.panelcontainer",
+            ".cmp-accordion"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/faqs.html"
     },
     {
       "name": "locale-landing",
@@ -90,7 +142,41 @@
       ],
       "coverageGaps": [],
       "description": "Locale home/landing page with full-width hero, intro copy, and teaser card grid linking into the site",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "section-rc3",
+          "instances": [
+            "body > div.root.container.responsivegrid > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.cmp-layout-container--fixed.aem-GridColumn.aem-GridColumn--default--12:nth-of-type(1) > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div.teaser.cmp-teaser--featured.aem-GridColumn.aem-GridColumn--default--12"
+          ],
+          "section": "highlight"
+        },
+        {
+          "name": "carousel-hero",
+          "instances": [
+            "body > div.root.container.responsivegrid > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div.carousel.panelcontainer.cmp-carousel--hero.aem-GridColumn.aem-GridColumn--default--12"
+          ]
+        },
+        {
+          "name": "columns-featured",
+          "instances": [
+            "body > div.root.container.responsivegrid > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.cmp-layout-container--fixed.aem-GridColumn.aem-GridColumn--default--12:nth-of-type(1) > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div.teaser.cmp-teaser--featured.aem-GridColumn.aem-GridColumn--default--12"
+          ]
+        },
+        {
+          "name": "cards-articles",
+          "instances": [
+            "body > div.root.container.responsivegrid > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.cmp-layout-container--fixed.aem-GridColumn.aem-GridColumn--default--12:nth-of-type(1) > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div.image-list.list.aem-GridColumn.aem-GridColumn--default--12",
+            "body > div.root.container.responsivegrid > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.cmp-layout-container--fixed.aem-GridColumn.aem-GridColumn--default--12:nth-of-type(1) > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div.image-list.list.aem-GridColumn.aem-GridColumn--default--12:nth-of-type(2)"
+          ]
+        },
+        {
+          "name": "hero-teaser",
+          "instances": [
+            "body > div.root.container.responsivegrid > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.aem-GridColumn.aem-GridColumn--default--12 > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > main.container.responsivegrid.cmp-layout-container--fixed.aem-GridColumn.aem-GridColumn--default--12:nth-of-type(1) > div.cmp-container > div.aem-Grid.aem-Grid--12.aem-Grid--default--12 > div.teaser.aem-GridColumn.aem-GridColumn--default--12"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en.html"
     },
     {
       "name": "magazine-article",
@@ -110,7 +196,11 @@
       ],
       "coverageGaps": [],
       "description": "Editorial article layout with hero image, byline/heading, and multi-section rich-text body",
-      "blocks": []
+      "blocks": [],
+      "representativeUrl": "https://wknd.site/us/en/magazine/arctic-surfing.html"
     }
-  ]
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
 }

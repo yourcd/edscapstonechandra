@@ -1,0 +1,133 @@
+/*
+ * cards-team — people/team card variant.
+ * Circular avatar + name + role + a row of social icon links.
+ *
+ * On the source (WKND About Us) each contributor is authored as its own
+ * single-row block, so the migrated page has several sibling .cards-team
+ * blocks stacked inside one section. We lay those siblings out as a grid at
+ * the section level so they read as a grid of people cards, while the
+ * section headings (default content) span the full width as group dividers.
+ *
+ * Values (avatar 164px, name Asar 24px/36, role 14px/21 uppercase, social
+ * 48x48 #202020 squares with #ebebeb glyphs, contiguous) are extracted from
+ * the source computed styles.
+ */
+
+/* --- Section-level grid across the sibling card blocks --- */
+main .section.cards-team-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 16px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+main .section.cards-team-container > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section headings / intros span the full grid width as group dividers */
+main .section.cards-team-container > .default-content-wrapper {
+  grid-column: 1 / -1;
+  margin: 16px 0 8px;
+}
+
+@media (width >= 900px) {
+  main .section.cards-team-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px 24px;
+    padding: 0 32px;
+  }
+}
+
+/* --- Single-card block --- */
+.cards-team,
+.cards-team > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-team > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 9px 14px 18px;
+}
+
+/* Circular avatar */
+.cards-team .cards-team-card-image {
+  line-height: 0;
+}
+
+.cards-team .cards-team-card-image img {
+  width: 164px;
+  height: 164px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Body */
+.cards-team .cards-team-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Name */
+.cards-team .cards-team-card-body h3 {
+  margin: 16px 0 6px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l); /* 24px */
+  font-weight: 400;
+  line-height: 36px;
+  color: var(--text-color);
+}
+
+/* Role / eyebrow */
+.cards-team .cards-team-card-body h5 {
+  margin: 0 0 22px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs); /* 14px */
+  font-weight: 600;
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  color: var(--text-color);
+}
+
+/* Social icon links row (contiguous dark squares) */
+.cards-team .cards-team-card-body p {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+}
+
+.cards-team .cards-team-card-body a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--dark-color);
+  color: #ebebeb;
+  border-radius: 0;
+  text-decoration: none;
+}
+
+.cards-team .cards-team-card-body a:hover {
+  background-color: var(--dark-color);
+  color: #fff;
+  text-decoration: none;
+}
+
+.cards-team .cards-team-card-body a svg {
+  width: 20px;
+  height: 20px;
+  fill: currentcolor;
+}
