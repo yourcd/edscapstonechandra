@@ -1,0 +1,47 @@
+.hero-teaser-container .hero-teaser-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero-teaser {
+  position: relative;
+  padding: 40px 24px;
+  min-height: 300px;
+}
+
+.hero-teaser h1,
+.hero-teaser h2,
+.hero-teaser h3,
+.hero-teaser h4,
+.hero-teaser h5,
+.hero-teaser h6,
+.hero-teaser p {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--background-color);
+}
+
+.hero-teaser.no-image * {
+  color: var(--text-color);
+}
+
+.hero-teaser picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.hero-teaser img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (width >= 900px) {
+  .hero-teaser {
+    padding: 40px 32px;
+  }
+}

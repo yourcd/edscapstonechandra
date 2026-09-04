@@ -1,0 +1,40 @@
+{
+  "variantName": "hero-intro",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-09-04T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/adventures.html",
+    "originPage": "WKND adventures listing page (us/en)",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "background image + light overlay card (heading + paragraph)",
+    "buttonCount": 0,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "editorial page intro with a full-bleed background photo and a light overlay card",
+      "listing/category page headers with heading + intro copy over an image",
+      "hero banners with no CTA button and a light content card"
+    ],
+    "notSuitableFor": [
+      "dark full-width promo banners with a CTA (use hero-teaser)",
+      "multiple rotating slides (use carousel-hero)",
+      "side-by-side image + text (use columns-featured)",
+      "repeating card grids (use cards-articles)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en/adventures"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-04T00:00:00.000Z"
+  }
+}
