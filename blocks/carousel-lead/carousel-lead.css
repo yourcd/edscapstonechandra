@@ -1,3 +1,11 @@
+/* Full-bleed lead image: break out of the 1200px section container.
+   Specificity must exceed global `main > .section > div` (0,1,2). */
+main .section .carousel-lead-wrapper {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 .carousel-lead .carousel-lead-slides-container {
   position: relative;
 }
@@ -29,7 +37,9 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  min-height: min(50vw, calc(100dvh - var(--header-height)));
+
+  /* Source lead image renders at a fixed 400px tall, full-bleed, on all breakpoints */
+  min-height: 400px;
 }
 
 .carousel-lead .carousel-lead-slide:has(.carousel-lead-slide-content[data-align='center']) {
@@ -59,6 +69,11 @@
   background-color: rgb(19 19 19 / 75%);
   position: relative;
   width: var(--slide-content-width, auto);
+}
+
+/* Lead variant: an empty content cell must not paint its dark overlay box */
+.carousel-lead .carousel-lead-slide .carousel-lead-slide-content:empty {
+  display: none;
 }
 
 .carousel-lead .carousel-lead-slide-indicators {

@@ -1,33 +1,103 @@
+/* columns-featured -- grey "Featured Article" callout.
+   Values extracted from WKND source computed styles. */
+
+.columns-featured {
+  color: var(--text-color);
+}
+
+/* mobile-first: stack, image on top */
 .columns-featured > div {
   display: flex;
   flex-direction: column;
 }
 
 .columns-featured img {
+  display: block;
   width: 100%;
+  object-fit: cover;
 }
 
-.columns-featured > div > div {
-  order: 1;
-}
-
+/* image column first on mobile */
 .columns-featured > div > .columns-featured-img-col {
   order: 0;
 }
 
-.columns-featured > div > .columns-featured-img-col img {
-  display: block;
+/* grey text panel */
+.columns-featured > div > .columns-featured-text-col {
+  order: 1;
+  background-color: rgb(235 235 235);
+  padding: 36px 24px;
+}
+
+/* eyebrow / pretitle */
+.columns-featured .columns-featured-eyebrow {
+  margin: 0 0 13.5px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.columns-featured .columns-featured-text-col h2 {
+  margin: 18px 0;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.columns-featured .columns-featured-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+/* CTA -- yellow square button */
+.columns-featured .columns-featured-cta-wrapper {
+  margin: 24px 0 0;
+}
+
+.columns-featured a.columns-featured-cta:any-link {
+  display: inline-block;
+  padding: 14px 35px;
+  border: 0;
+  border-radius: 0;
+  background-color: rgb(255 234 0);
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.columns-featured a.columns-featured-cta:any-link:hover {
+  background-color: rgb(240 220 0);
+  color: var(--text-color);
+  text-decoration: none;
 }
 
 @media (width >= 900px) {
+  /* image left (62.4%), grey panel right (37.6%) -- source uses row-reverse */
   .columns-featured > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    flex-direction: row-reverse;
+    align-items: stretch;
   }
 
-  .columns-featured > div > div {
-    flex: 1;
+  .columns-featured > div > .columns-featured-img-col {
+    flex: 0 0 62.4%;
+  }
+
+  .columns-featured > div > .columns-featured-text-col {
+    flex: 0 0 37.6%;
     order: unset;
+    padding: 63px 36px 36px;
+  }
+
+  .columns-featured > div > .columns-featured-img-col img {
+    height: 100%;
   }
 }

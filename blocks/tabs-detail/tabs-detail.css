@@ -1,58 +1,67 @@
+/* tabs-detail -- values extracted from wknd source computed styles */
+
 .tabs-detail .tabs-detail-list {
   display: flex;
-  gap: 0.5ch;
+  flex-flow: row wrap;
+  gap: 0;
   max-width: 100%;
-  font-size: var(--body-font-size-xs);
-  overflow-x: auto;
-}
-
-@media (width >= 600px) {
-  .tabs-detail .tabs-detail-list {
-    font-size: var(--body-font-size-s);
-  }
-}
-
-@media (width >= 900px) {
-  .tabs-detail .tabs-detail-list {
-    font-size: var(--body-font-size-m);
-  }
+  margin: 18px 0;
+  padding: 0;
+  list-style: none;
 }
 
 .tabs-detail .tabs-detail-list button {
-  flex: 0 0 max-content;
+  flex: 0 0 auto;
   margin: 0;
-  border: 1px solid #dadada;
+  padding: 8px 16px;
+  border: 0 none;
+  border-bottom: 1px solid transparent;
   border-radius: 0;
-  padding: 0.5em;
-  background-color: var(--light-color);
-  color: initial;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
-  text-overflow: unset;
-  overflow: unset;
-  white-space: unset;
-  transition: background-color 0.2s;
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
 }
-
-.tabs-detail .tabs-detail-list button p {
-  margin: 0;
-}
-
 
 .tabs-detail .tabs-detail-list button[aria-selected='true'] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
-  cursor: initial;
+  background-color: var(--dark-color);
+  color: var(--background-color);
+  cursor: default;
 }
 
 .tabs-detail .tabs-detail-panel {
   margin-top: -1px;
   padding: 24px;
   border: 1px solid #dadada;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: 27px;
   overflow: auto;
 }
 
 .tabs-detail .tabs-detail-panel[aria-hidden='true'] {
   display: none;
+}
+
+.tabs-detail .tabs-detail-panel h3 {
+  margin: 19.2px 0 6px;
+  font-size: var(--heading-font-size-l);
+  line-height: 36px;
+}
+
+.tabs-detail .tabs-detail-panel p {
+  margin: 14.4px 0 4.5px;
+  font-size: var(--body-font-size-m);
+  line-height: 27px;
+}
+
+.tabs-detail .tabs-detail-list button p {
+  margin: 0;
 }

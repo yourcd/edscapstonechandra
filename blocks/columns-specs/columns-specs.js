@@ -1,18 +1,15 @@
 export default function decorate(block) {
-  const cols = [...block.firstElementChild.children];
-  block.classList.add(`columns-specs-${cols.length}-cols`);
-
-  // setup image columns
   [...block.children].forEach((row) => {
-    [...row.children].forEach((col) => {
-      const pic = col.querySelector('picture');
-      if (pic) {
-        const picWrapper = pic.closest('div');
-        if (picWrapper && picWrapper.children.length === 1) {
-          // picture is only content in column
-          picWrapper.classList.add('columns-specs-img-col');
-        }
-      }
-    });
+    const cells = [...row.children];
+    // Spec pair rows contain list markup (label list + value list).
+    const hasList = row.querySelector('ul, ol');
+    if (hasList) {
+      row.classList.add('columns-specs-row');
+      if (cells[0]) cells[0].classList.add('columns-specs-label');
+      if (cells[1]) cells[1].classList.add('columns-specs-value');
+    } else {
+      // Title / heading row (no label-value list).
+      row.classList.add('columns-specs-title');
+    }
   });
 }

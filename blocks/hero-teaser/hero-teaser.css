@@ -1,47 +1,103 @@
+/*
+ * hero-teaser — image-bottom promo teaser.
+ * Source: WKND "Climbing New Zealand" (div.teaser.cmp-teaser--hero.cmp-teaser--imagebottom).
+ * Pattern: full-bleed image on top; white content card below that overlaps the
+ * image upward on desktop. Values extracted from source computed styles.
+ */
+
+/* Full-bleed: cancel the section wrapper max-width/padding so the image spans
+   edge-to-edge. Two-class selector beats the global `main > .section > div`. */
 .hero-teaser-container .hero-teaser-wrapper {
   max-width: unset;
   padding: 0;
 }
 
 .hero-teaser {
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Image (top) --- */
+.hero-teaser .hero-teaser-image picture {
+  display: block;
+  line-height: 0;
+}
+
+.hero-teaser .hero-teaser-image img {
+  display: block;
+  width: 100%;
+  height: 260px;               /* mobile */
+  object-fit: cover;
+  object-position: 50% 100%;   /* anchored to bottom */
+}
+
+/* --- Content card (below / overlapping) --- */
+.hero-teaser .hero-teaser-content {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  padding: 0 14px;             /* mobile gutter */
+  background-color: var(--background-color);
 }
 
-.hero-teaser h1,
-.hero-teaser h2,
-.hero-teaser h3,
-.hero-teaser h4,
-.hero-teaser h5,
-.hero-teaser h6,
-.hero-teaser p {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+.hero-teaser.no-image .hero-teaser-content {
+  padding-top: 18px;
 }
 
-.hero-teaser.no-image * {
+.hero-teaser .hero-teaser-content h2 {
+  margin: 18px 0 0;
+  font-family: var(--heading-font-family);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 54px;
   color: var(--text-color);
 }
 
-.hero-teaser picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+.hero-teaser .hero-teaser-content p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);   /* 18px */
+  font-weight: 400;
+  line-height: 31.5px;
+  color: var(--text-color);
 }
 
-.hero-teaser img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+/* CTA button — square WKND yellow, overrides the global rounded button. */
+.hero-teaser .hero-teaser-content p.button-container {
+  margin: 18px 0;
 }
 
+main .hero-teaser a.button:any-link {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 14px 35px;
+  background-color: #ffea00;   /* WKND accent yellow (extracted) */
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);   /* 14px */
+  font-weight: 600;
+  line-height: 21px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+main .hero-teaser a.button:any-link:hover,
+main .hero-teaser a.button:any-link:focus-visible {
+  background-color: #f0dc00;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* --- Desktop --- */
 @media (width >= 900px) {
-  .hero-teaser {
-    padding: 40px 32px;
+  .hero-teaser .hero-teaser-image img {
+    height: 640px;
+  }
+
+  .hero-teaser .hero-teaser-content {
+    box-sizing: border-box;
+    max-width: 1192px;       /* matches source card outer width */
+    margin: -180px auto 0;   /* card overlaps image upward and centres */
+    padding: 0 28px;
   }
 }
