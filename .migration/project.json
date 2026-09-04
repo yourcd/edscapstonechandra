@@ -1,0 +1,10 @@
+{
+  "sites": {
+    "edscapstonechandra": {
+      "previewOrg": "yourcd",
+      "previewSite": "edscapstonechandra",
+      "contentHostUrl": "https://content.da.live/yourcd/edscapstonechandra/",
+      "libraryUrl": "https://main--edscapstonechandra--yourcd.aem.live/tools/sidekick/library.json"
+    }
+  }
+}
