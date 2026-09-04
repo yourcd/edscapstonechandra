@@ -13,6 +13,10 @@
   --link-color: #0045ff;
   --link-hover-color: #0037cc;
 
+  /* buttons (WKND primary CTA = brand yellow) */
+  --button-primary-color: #ffea00;
+  --button-primary-hover-color: #f0dc00;
+
   /* fonts */
   --heading-font-family: "Asar", georgia, "Times New Roman", times, serif;
   --body-font-family: "Source Sans Pro", "Helvetica Neue", helvetica, arial, sans-serif;
