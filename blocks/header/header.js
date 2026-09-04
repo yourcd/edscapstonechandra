@@ -39,22 +39,30 @@ function buildSearch() {
 }
 
 /**
- * Turn the locale list into a click-toggle dropdown.
+ * Turn the country-grouped locale list into a click-toggle dropdown.
+ * Mirrors the source: an "en-US" toggle with the US flag + caret opening a
+ * fixed dark panel of country groups (flag + language links).
  * @param {Element} localeSection the locale nav section
  */
 function decorateLocale(localeSection) {
-  const list = localeSection.querySelector('ul');
-  if (!list) return;
-  const items = [...list.querySelectorAll('a')];
-  // current locale = first entry (source shows en-US as current)
-  const currentLabel = items[0] ? items[0].textContent.trim() : 'en-US';
+  const panel = localeSection.querySelector('ul');
+  if (!panel) return;
+  panel.classList.add('nav-locale-panel');
+
+  // current locale = the first language link (source marks en-US active)
+  const firstLink = panel.querySelector('a');
+  const currentLabel = firstLink ? firstLink.textContent.trim() : 'en-US';
+  const currentFlag = localeSection.querySelector('img');
+  const flagSrc = currentFlag ? currentFlag.getAttribute('src') : '';
+
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'nav-locale-toggle';
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-label', 'Toggle language');
-  toggle.textContent = currentLabel;
+  toggle.innerHTML = `${flagSrc ? `<img src="${flagSrc}" alt="">` : ''}<span>${currentLabel}</span>`;
   localeSection.prepend(toggle);
+
   toggle.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', open ? 'false' : 'true');

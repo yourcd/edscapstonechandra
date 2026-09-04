@@ -104,30 +104,70 @@ header nav .nav-locale {
 }
 
 header nav .nav-locale-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 0;
-  border: 1px solid rgb(255 255 255 / 40%);
-  padding: 4px 12px;
+  border: 0;
+  padding: 4px 0;
   background: transparent;
   color: #f7f7f7;
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
   text-transform: uppercase;
   cursor: pointer;
 }
 
-header nav .nav-locale ul {
+header nav .nav-locale-toggle img {
+  width: 25px;
+  height: auto;
+}
+
+/* caret after the toggle label */
+header nav .nav-locale-toggle::after {
+  content: '';
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  border: solid currentcolor;
+  border-width: 0.1em 0.1em 0 0;
+  transform: rotate(135deg);
+  transition: transform 0.2s ease;
+}
+
+header nav .nav-locale-toggle[aria-expanded='true']::after {
+  transform: rotate(-45deg);
+}
+
+/* country-group panel */
+header nav .nav-locale-panel {
   list-style: none;
   margin: 8px 0 0;
   padding: 0;
 }
 
-header nav .nav-locale:not(.open) ul { display: none; }
+header nav .nav-locale:not(.open) .nav-locale-panel { display: none; }
 
-header nav .nav-locale a {
-  display: block;
-  padding: 6px 0;
+/* country group: flag + name on its own row */
+header nav .nav-locale-panel > li {
+  padding: 8px 0 12px;
+  border-bottom: 0.25px solid dimgray;
+}
+
+header nav .nav-locale-panel > li:last-child { border-bottom: none; }
+
+/* language links: inline, separated by bars */
+header nav .nav-locale-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+header nav .nav-locale-panel a {
   color: #f7f7f7;
-  font-size: 13px;
+  font-size: 14px;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -163,6 +203,29 @@ header nav .nav-search input {
 header nav .nav-search input::placeholder { color: rgb(247 247 247 / 70%); }
 
 header nav .nav-sections a:hover { text-decoration: underline; }
+
+/* country group label: flag + name (placed last to satisfy specificity order) */
+header nav .nav-locale-panel > li > p {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 4px;
+  color: #ebebeb;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+header nav .nav-locale-panel > li > p img {
+  width: 25px;
+  height: auto;
+}
+
+/* language links: divider bars between locale links (highest specificity, last) */
+header nav .nav-locale-panel ul li:not(:last-child) a {
+  border-right: 1px solid #f7f7f7;
+  margin-right: 5px;
+  padding-right: 5px;
+}
 
 /* mobile closed state: hide the collapsible groups until hamburger opens */
 header nav[aria-expanded='false'] .nav-sections,
@@ -200,15 +263,17 @@ header nav[aria-expanded='false'] .nav-tools {
     place-self: center end;
   }
 
-  header nav .nav-locale ul {
+  header nav .nav-locale-panel {
     position: absolute;
     right: 0;
-    z-index: 2;
-    margin-top: 4px;
-    padding: 8px 14px;
+    top: calc(var(--nav-height, 88px) / 2 + 20px);
+    z-index: 999;
+    width: 360px;
+    margin: 0;
+    padding: 0 14px;
+    box-sizing: border-box;
     background-color: var(--dark-color, #202020);
-    border: 1px solid rgb(255 255 255 / 20%);
-    min-width: 90px;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 25%);
   }
 
   header nav .nav-tools { justify-content: flex-end; }
