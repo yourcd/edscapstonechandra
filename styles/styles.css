@@ -745,10 +745,19 @@ main .magazine-author-social:focus-visible {
   background-color: #000;
 }
 
+/* The shared social SVGs are fill="currentColor", which renders black when
+   loaded as an <img>; force them white so they show on the dark boxes. Sized
+   small (20px) to match the source. The min-width reset defeats the global
+   `main img` sizing so the icon does not stretch to fill the flex box. */
 /* stylelint-disable-next-line no-descending-specificity */
-main .magazine-author-social img {
-  width: 22px;
-  height: 22px;
+main .magazine-author .magazine-author-social img {
+  flex: 0 0 auto;
+  width: 20px;
+  min-width: 0;
+  height: 20px;
+  max-width: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
