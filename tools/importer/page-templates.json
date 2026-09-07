@@ -222,6 +222,12 @@
           "instances": [
             "div.image-list.list"
           ]
+        },
+        {
+          "name": "cards-locked",
+          "instances": [
+            "div.cmp-teaser--secure"
+          ]
         }
       ],
       "representativeUrl": "https://wknd.site/us/en/magazine.html"
