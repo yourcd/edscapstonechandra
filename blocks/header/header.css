@@ -5,15 +5,17 @@
 
 /* The global styles.css reserves a single-row header (height: var(--nav-height)).
    This header is two rows (utility strip + main row), so let it size to its
-   content — otherwise the fixed height clips the logo and content overlaps it. */
+   content — otherwise the fixed height clips the logo and content overlaps it.
+   Sticky lives on <header> itself (a direct child of <body>) so it pins to the
+   page scroll; on .nav-wrapper it would only stick within the short header box. */
 header {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
   height: auto;
 }
 
 header .nav-wrapper {
-  position: sticky;
-  top: 0;
-  z-index: 1030;
   width: 100%;
   background-color: var(--background-color, #fff);
 }
