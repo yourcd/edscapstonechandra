@@ -266,6 +266,65 @@ function decorateMagazineArticle(main) {
   if (article.childElementCount) wrapper.append(article);
   if (aside.childElementCount) wrapper.append(aside);
 
+  // 3b. Group the author/contributor block at the foot of the article (source:
+  //     cmp-byline) — name (h2) + occupation (p) + social links — behind a
+  //     horizontal rule, and turn the social text links into icon buttons.
+  const socialIcons = { facebook: 'facebook', twitter: 'twitter', instagram: 'instagram' };
+  const authorName = [...article.querySelectorAll('h2')].pop();
+  if (authorName) {
+    const authorBlock = document.createElement('div');
+    authorBlock.className = 'magazine-author';
+    authorName.classList.add('magazine-author-name');
+    const collected = [authorName];
+    let el = authorName.nextElementSibling;
+    while (el) {
+      const next = el.nextElementSibling;
+      const link = el.querySelector && el.querySelector('a');
+      const key = link && Object.keys(socialIcons).find(
+        (k) => new RegExp(k, 'i').test(link.textContent),
+      );
+      if (key) {
+        // convert the text link into an icon button
+        link.classList.add('magazine-author-social');
+        link.setAttribute('aria-label', link.textContent.trim());
+        link.textContent = '';
+        const img = document.createElement('img');
+        img.src = `/content/images/social-${socialIcons[key]}.svg`;
+        img.alt = key;
+        img.loading = 'lazy';
+        link.append(img);
+        collected.push(el);
+      } else if (el.tagName === 'P') {
+        el.classList.add('magazine-author-role');
+        collected.push(el);
+      } else {
+        break;
+      }
+      el = next;
+    }
+    // build a socials row from the collected social paragraphs
+    const socialLinks = collected
+      .map((p) => p.querySelector && p.querySelector('a.magazine-author-social'))
+      .filter(Boolean);
+    authorName.before(authorBlock);
+    const info = document.createElement('div');
+    info.className = 'magazine-author-info';
+    collected.forEach((c) => {
+      if (!c.querySelector || !c.querySelector('a.magazine-author-social')) info.append(c);
+    });
+    authorBlock.append(info);
+    if (socialLinks.length) {
+      const socials = document.createElement('div');
+      socials.className = 'magazine-author-socials';
+      socialLinks.forEach((a) => socials.append(a));
+      // drop the now-empty paragraphs that had held the social links
+      collected.forEach((c) => {
+        if (c.tagName === 'P' && !c.textContent.trim() && !c.querySelector('img')) c.remove();
+      });
+      authorBlock.append(socials);
+    }
+  }
+
   // 4. Tag the sidebar's lists and download button so they can be styled to
   //    match the source (cmp-list--upnext / cmp-download).
   aside.querySelectorAll('ul').forEach((ul) => {

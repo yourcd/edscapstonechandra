@@ -464,7 +464,10 @@ main .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
   content: '\203A'; /* › */
   margin-right: 10px;
   color: var(--button-primary-color, #ffea00);
+  font-size: 1.6em; /* larger yellow separator, matching the source */
   font-weight: 700;
+  line-height: 0;
+  vertical-align: -0.15em;
 }
 
 main .breadcrumb .breadcrumb-item a:any-link {
@@ -660,6 +663,70 @@ main .section.magazine-article-page .magazine-aside .magazine-recent-date {
   font-size: 12px;
   text-transform: uppercase;
   color: #696969;
+}
+
+/* breadcrumb sits left-aligned at the top of the article head (no auto-centering
+   max-width offset; the section already provides the page gutter) */
+main .section.magazine-article-page .breadcrumb {
+  max-width: 100%;
+  margin: 0;
+  padding: 12px 0 0;
+  text-align: left;
+}
+
+/* author / contributor block at the foot of the article (source: cmp-byline):
+   a full-width horizontal rule, then the avatar-less name + occupation on the
+   left and dark social icon buttons on the right. */
+main .section.magazine-article-page .magazine-author {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin: 40px 0 0;
+  padding: 40px 0 0;
+  border-top: 1px solid #ebebeb;
+}
+
+main .section.magazine-article-page .magazine-author-name {
+  margin: 0 0 4px;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+main .section.magazine-article-page .magazine-author-role {
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+main .section.magazine-article-page .magazine-author-socials {
+  display: flex;
+  gap: 0;
+}
+
+main .section.magazine-article-page .magazine-author-social:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background-color: var(--dark-color, #202020);
+  color: #fff;
+}
+
+main .section.magazine-article-page .magazine-author-social:hover,
+main .section.magazine-article-page .magazine-author-social:focus-visible {
+  background-color: #000;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .section.magazine-article-page .magazine-author-social img {
+  width: 22px;
+  height: 22px;
 }
 
 /* two-column split at desktop: article ~8fr, sidebar ~3fr. The head elements
