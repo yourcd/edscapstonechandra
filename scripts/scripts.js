@@ -178,6 +178,115 @@ function buildBreadcrumb(main) {
 }
 
 /**
+ * Restructures a magazine article page to match the source layout: a full-width
+ * head (hero, breadcrumb, title, byline) followed by a two-column body — the
+ * article on the left and a sidebar (Share / Download PDF / recent stories) on
+ * the right. The migrated content arrives as one flat default-content blob, so
+ * the split is done here rather than in the authored document.
+ * @param {Element} main The main container element
+ */
+function decorateMagazineArticle(main) {
+  const segs = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '').split('/').filter(Boolean);
+  const magIdx = segs.indexOf('magazine');
+  // article pages only: exactly one slug after the "magazine" listing segment
+  if (magIdx === -1 || magIdx !== segs.length - 2) return;
+
+  const section = main.querySelector('.section');
+  const wrapper = section && section.querySelector('.default-content-wrapper');
+  if (!wrapper || section.classList.contains('magazine-article-page')) return;
+  section.classList.add('magazine-article-page');
+
+  // 1. Restyle the authored breadcrumb <ol> (Magazine / <title>) as a nav.
+  const bcList = [...wrapper.children].find(
+    (el) => el.tagName === 'OL' && el.querySelector('a[href*="/magazine"]'),
+  );
+  if (bcList) {
+    const nav = document.createElement('nav');
+    nav.className = 'breadcrumb';
+    nav.setAttribute('aria-label', 'Breadcrumb');
+    const ol = document.createElement('ol');
+    ol.className = 'breadcrumb-list';
+    const items = [...bcList.children];
+    items.forEach((li, i) => {
+      const item = document.createElement('li');
+      item.className = 'breadcrumb-item';
+      if (i === items.length - 1) {
+        item.classList.add('breadcrumb-current');
+        item.setAttribute('aria-current', 'page');
+      }
+      item.append(...li.childNodes);
+      ol.append(item);
+    });
+    nav.append(ol);
+    bcList.replaceWith(nav);
+  }
+
+  // 2. Wrap the quote (blockquote + attribution) in a grey box.
+  const blockquote = wrapper.querySelector('blockquote');
+  if (blockquote && !blockquote.closest('.magazine-quote')) {
+    const quote = document.createElement('div');
+    quote.className = 'magazine-quote';
+    blockquote.replaceWith(quote);
+    quote.append(blockquote);
+    const attribution = quote.nextElementSibling;
+    if (attribution && attribution.tagName === 'P' && attribution.querySelector('u')) {
+      quote.append(attribution);
+    }
+  }
+
+  // 3. Split the body: everything from "Share this Story" onward is the sidebar;
+  //    the head elements (hero image, breadcrumb, title, byline) stay full-width.
+  const liveKids = [...wrapper.children];
+  const shareEl = liveKids.find(
+    (el) => /^H\d$/.test(el.tagName) && /share this story/i.test(el.textContent),
+  );
+  const shareIdx = shareEl ? liveKids.indexOf(shareEl) : -1;
+
+  const head = new Set();
+  const heroP = liveKids.find((el) => el.tagName === 'P' && el.querySelector('picture'));
+  if (heroP) head.add(heroP);
+  const bcNav = wrapper.querySelector('nav.breadcrumb');
+  if (bcNav) head.add(bcNav);
+  const title = wrapper.querySelector('h1');
+  if (title) head.add(title);
+  const byline = title && title.nextElementSibling && title.nextElementSibling.tagName === 'H4'
+    ? title.nextElementSibling : null;
+  if (byline) head.add(byline);
+
+  const article = document.createElement('div');
+  article.className = 'magazine-article';
+  const aside = document.createElement('div');
+  aside.className = 'magazine-aside';
+
+  liveKids.forEach((el, i) => {
+    if (head.has(el)) return; // leave in place, full-width
+    if (shareIdx !== -1 && i >= shareIdx) aside.append(el);
+    else article.append(el);
+  });
+  if (article.childElementCount) wrapper.append(article);
+  if (aside.childElementCount) wrapper.append(aside);
+
+  // 4. Split each recent-story link into an uppercase title + a muted date so
+  //    the sidebar nav matches the source (capitalised text, yellow hover).
+  aside.querySelectorAll('ul a').forEach((a) => {
+    if (!/\/magazine\//.test(a.getAttribute('href') || '')) return;
+    const text = a.textContent.trim();
+    const m = text.match(/\s+((?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,\s+.+)$/);
+    a.textContent = '';
+    const titleSpan = document.createElement('span');
+    titleSpan.className = 'magazine-recent-title';
+    titleSpan.textContent = m ? text.slice(0, m.index).trim() : text;
+    a.append(titleSpan);
+    if (m) {
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'magazine-recent-date';
+      dateSpan.textContent = m[1].trim();
+      a.append(dateSpan);
+    }
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -189,6 +298,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateButtons(main);
   buildBreadcrumb(main);
+  decorateMagazineArticle(main);
 }
 
 /**
