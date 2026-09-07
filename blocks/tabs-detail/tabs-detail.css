@@ -1,5 +1,15 @@
 /* tabs-detail -- values extracted from wknd source computed styles */
 
+/* Stack the tab list and all panels in a single-column grid. The panels all
+   share ONE grid cell (row 2), so the cell — and therefore the whole block —
+   is always as tall as the TALLEST panel, no matter which tab is active. This
+   keeps the component's footprint fixed and stops it (and the surrounding
+   two-column layout) from shifting when a shorter/taller tab is selected. */
+.tabs-detail {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
 .tabs-detail .tabs-detail-list {
   display: flex;
   flex-flow: row wrap;
@@ -37,17 +47,23 @@
 }
 
 .tabs-detail .tabs-detail-panel {
+  /* every panel occupies the same grid cell so they overlap and the cell sizes
+     to the tallest one */
+  grid-row: 2;
+  grid-column: 1;
   margin-top: -1px;
   padding: 24px;
   border: 1px solid #dadada;
   color: var(--text-color);
   font-size: var(--body-font-size-m);
   line-height: 27px;
-  overflow: auto;
+  box-sizing: border-box;
 }
 
+/* Hide inactive panels without removing them from the grid, so they continue to
+   reserve their height and the block's footprint never changes on tab switch. */
 .tabs-detail .tabs-detail-panel[aria-hidden='true'] {
-  display: none;
+  visibility: hidden;
 }
 
 .tabs-detail .tabs-detail-panel h3 {
@@ -64,4 +80,5 @@
 
 .tabs-detail .tabs-detail-list button p {
   margin: 0;
+  text-transform: uppercase;
 }

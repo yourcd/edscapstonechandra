@@ -143,6 +143,41 @@ function decorateButtons(main) {
 }
 
 /**
+ * Builds a breadcrumb for adventure detail pages (source: cmp-breadcrumb).
+ * The migrated content has no breadcrumb, so it is derived from the URL:
+ * "Adventures / <Page Title>", with "Adventures" linking to the listing.
+ * @param {Element} main The main container element
+ */
+function buildBreadcrumb(main) {
+  const path = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '');
+  const segs = path.split('/').filter(Boolean);
+  const advIdx = segs.indexOf('adventures');
+  // only detail pages: exactly one slug after the "adventures" listing segment
+  if (advIdx === -1 || advIdx !== segs.length - 2) return;
+
+  const section = main.querySelector('.section');
+  if (!section || section.querySelector('.breadcrumb')) return;
+
+  const listingHref = `/${segs.slice(0, advIdx + 1).join('/')}`;
+  const titleEl = main.querySelector('h1, h2');
+  const title = (titleEl ? titleEl.textContent : segs[segs.length - 1]).trim();
+
+  const nav = document.createElement('nav');
+  nav.className = 'breadcrumb';
+  nav.setAttribute('aria-label', 'Breadcrumb');
+  const link = document.createElement('a');
+  link.href = listingHref;
+  link.textContent = 'Adventures';
+  nav.innerHTML = `
+    <ol class="breadcrumb-list">
+      <li class="breadcrumb-item"></li>
+      <li class="breadcrumb-item breadcrumb-current" aria-current="page">${title}</li>
+    </ol>`;
+  nav.querySelector('.breadcrumb-item').append(link);
+  section.prepend(nav);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -153,6 +188,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  buildBreadcrumb(main);
 }
 
 /**
