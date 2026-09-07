@@ -266,65 +266,6 @@ function decorateMagazineArticle(main) {
   if (article.childElementCount) wrapper.append(article);
   if (aside.childElementCount) wrapper.append(aside);
 
-  // 3b. Group the author/contributor block at the foot of the article (source:
-  //     cmp-byline) — name (h2) + occupation (p) + social links — behind a
-  //     horizontal rule, and turn the social text links into icon buttons.
-  const socialIcons = { facebook: 'facebook', twitter: 'twitter', instagram: 'instagram' };
-  const authorName = [...article.querySelectorAll('h2')].pop();
-  if (authorName) {
-    const authorBlock = document.createElement('div');
-    authorBlock.className = 'magazine-author';
-    authorName.classList.add('magazine-author-name');
-    const collected = [authorName];
-    let el = authorName.nextElementSibling;
-    while (el) {
-      const next = el.nextElementSibling;
-      const link = el.querySelector && el.querySelector('a');
-      const key = link && Object.keys(socialIcons).find(
-        (k) => new RegExp(k, 'i').test(link.textContent),
-      );
-      if (key) {
-        // convert the text link into an icon button
-        link.classList.add('magazine-author-social');
-        link.setAttribute('aria-label', link.textContent.trim());
-        link.textContent = '';
-        const img = document.createElement('img');
-        img.src = `/content/images/social-${socialIcons[key]}.svg`;
-        img.alt = key;
-        img.loading = 'lazy';
-        link.append(img);
-        collected.push(el);
-      } else if (el.tagName === 'P') {
-        el.classList.add('magazine-author-role');
-        collected.push(el);
-      } else {
-        break;
-      }
-      el = next;
-    }
-    // build a socials row from the collected social paragraphs
-    const socialLinks = collected
-      .map((p) => p.querySelector && p.querySelector('a.magazine-author-social'))
-      .filter(Boolean);
-    authorName.before(authorBlock);
-    const info = document.createElement('div');
-    info.className = 'magazine-author-info';
-    collected.forEach((c) => {
-      if (!c.querySelector || !c.querySelector('a.magazine-author-social')) info.append(c);
-    });
-    authorBlock.append(info);
-    if (socialLinks.length) {
-      const socials = document.createElement('div');
-      socials.className = 'magazine-author-socials';
-      socialLinks.forEach((a) => socials.append(a));
-      // drop the now-empty paragraphs that had held the social links
-      collected.forEach((c) => {
-        if (c.tagName === 'P' && !c.textContent.trim() && !c.querySelector('img')) c.remove();
-      });
-      authorBlock.append(socials);
-    }
-  }
-
   // 4. Tag the sidebar's lists and download button so they can be styled to
   //    match the source (cmp-list--upnext / cmp-download).
   aside.querySelectorAll('ul').forEach((ul) => {
@@ -359,6 +300,97 @@ function decorateMagazineArticle(main) {
 }
 
 /**
+ * Builds the author/contributor byline at the foot of a magazine article to
+ * match the source (cmp-byline): a round avatar + serif name + uppercase
+ * occupation on the left, and dark social icon buttons on the right, all behind
+ * a horizontal rule. The byline pieces (avatar picture, name h2, occupation,
+ * social links) can live inside the article wrapper or in a following section,
+ * so this walks the flattened element order rather than a single container.
+ * @param {Element} main The main container element
+ */
+function decorateMagazineByline(main) {
+  const segs = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '').split('/').filter(Boolean);
+  const magIdx = segs.indexOf('magazine');
+  if (magIdx === -1 || magIdx !== segs.length - 2) return;
+  if (main.querySelector('.magazine-author')) return;
+
+  const socialKeys = ['facebook', 'twitter', 'instagram'];
+  const isSocialP = (el) => el && el.tagName === 'P' && el.querySelector('a')
+    && socialKeys.some((k) => new RegExp(k, 'i').test(el.textContent));
+
+  // the author name is an <h2> immediately followed by an occupation <p> and
+  // then social links.
+  const nameEl = [...main.querySelectorAll('.default-content-wrapper h2, .magazine-article h2')]
+    .find((h) => {
+      let n = h.nextElementSibling;
+      // skip the occupation paragraph
+      if (n && n.tagName === 'P' && !n.querySelector('a')) n = n.nextElementSibling;
+      return isSocialP(n);
+    });
+  if (!nameEl) return;
+
+  const authorBlock = document.createElement('div');
+  authorBlock.className = 'magazine-author';
+  const info = document.createElement('div');
+  info.className = 'magazine-author-info';
+  const socials = document.createElement('div');
+  socials.className = 'magazine-author-socials';
+
+  // avatar: the image-only paragraph immediately before the name in document
+  // order (it may live at the end of the preceding section, so look across
+  // containers rather than only at previousElementSibling).
+  const blocks = [...main.querySelectorAll(
+    '.magazine-article > *, .default-content-wrapper > *',
+  )];
+  const prev = blocks[blocks.indexOf(nameEl) - 1];
+  const avatarSource = prev && prev.querySelector
+    && prev.querySelector('img') && !prev.textContent.trim() ? prev : null;
+  const avatarImg = avatarSource && avatarSource.querySelector('img');
+
+  nameEl.parentElement.insertBefore(authorBlock, nameEl);
+  if (avatarImg) {
+    const avatar = document.createElement('div');
+    avatar.className = 'magazine-author-avatar';
+    avatar.append(avatarImg.closest('picture') || avatarImg);
+    authorBlock.append(avatar);
+    if (!avatarSource.textContent.trim() && !avatarSource.querySelector('img')) {
+      avatarSource.remove();
+    }
+  }
+  authorBlock.append(info);
+
+  // walk name → occupation → socials
+  nameEl.classList.add('magazine-author-name');
+  const toMove = [nameEl];
+  let el = nameEl.nextElementSibling;
+  while (el) {
+    const next = el.nextElementSibling;
+    if (isSocialP(el)) {
+      const link = el.querySelector('a');
+      const key = socialKeys.find((k) => new RegExp(k, 'i').test(link.textContent));
+      link.classList.add('magazine-author-social');
+      link.setAttribute('aria-label', link.textContent.trim());
+      link.textContent = '';
+      const img = document.createElement('img');
+      img.src = `/content/images/social-${key}.svg`;
+      img.alt = key;
+      img.loading = 'lazy';
+      link.append(img);
+      socials.append(link);
+      el.remove();
+    } else if (el.tagName === 'P' && el.textContent.trim()) {
+      el.classList.add('magazine-author-role');
+      toMove.push(el);
+    } else {
+      break;
+    }
+    el = next;
+  }
+  toMove.forEach((n) => info.append(n));
+  if (socials.childElementCount) authorBlock.append(socials);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -371,6 +403,7 @@ export function decorateMain(main) {
   decorateButtons(main);
   buildBreadcrumb(main);
   decorateMagazineArticle(main);
+  decorateMagazineByline(main);
 }
 
 /**
