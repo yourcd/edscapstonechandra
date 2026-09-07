@@ -343,6 +343,10 @@ main .section.dark a:any-link {
     grid-template-columns: 8fr 3fr;
     column-gap: 48px;
     align-items: start;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 32px; /* page gutter, matches other sections */
   }
 
   main .section.accordion-faq-container > div {
