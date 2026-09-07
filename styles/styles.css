@@ -539,8 +539,9 @@ main .section.magazine-article-page .magazine-quote p {
   margin: 0;
 }
 
-/* sidebar */
-main .section.magazine-article-page .magazine-aside h5 {
+/* sidebar headings (SHARE THIS STORY / DOWNLOAD PDF) — uppercase labels */
+main .section.magazine-article-page .magazine-aside h5,
+main .section.magazine-article-page .magazine-aside h3 {
   margin: 0 0 12px;
   font-family: var(--body-font-family);
   font-size: 14px;
@@ -548,29 +549,100 @@ main .section.magazine-article-page .magazine-aside h5 {
   text-transform: uppercase;
 }
 
-/* recent-stories list (source: cmp-list--upnext) — capitalised titles, muted
-   dates, yellow hover background */
-main .section.magazine-article-page .magazine-aside ul {
+main .section.magazine-article-page .magazine-aside h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+main .section.magazine-article-page .magazine-aside > p {
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* PDF metadata (filename / size / format) — small muted uppercase text */
+main .section.magazine-article-page .magazine-aside .magazine-meta-list {
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-meta-list li {
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-meta-list p {
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+/* black "Download PDF" button with a download icon (source: cmp-download) */
+main .section.magazine-article-page .magazine-aside .magazine-download-wrapper {
+  margin: 18px 0;
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-download-button:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 32px;
+  background-color: var(--dark-color, #202020);
+  color: var(--background-color, #fff);
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-download-button:hover,
+main .section.magazine-article-page .magazine-aside .magazine-download-button:focus-visible {
+  background-color: #000;
+  color: var(--background-color, #fff);
+  text-decoration: none;
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-download-button::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+
+  /* down-arrow-in-box download glyph */
+  background-color: currentcolor;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3h18v18H3z" fill="none" stroke="black" stroke-width="2"/><path d="M12 6v8m0 0l-3-3m3 3l3-3" fill="none" stroke="black" stroke-width="2"/></svg>') center / contain no-repeat;
+}
+
+/* recent-stories list (source: cmp-list--upnext) — tall items with a grey left
+   bar; the active/hovered entry turns yellow with a black bar. */
+main .section.magazine-article-page .magazine-aside .magazine-recent-list {
   margin: 18px 0 0;
   padding: 0;
   list-style: none;
 }
 
-main .section.magazine-article-page .magazine-aside ul li {
+main .section.magazine-article-page .magazine-aside .magazine-recent-list li {
   margin: 0 0 18px;
   padding: 0;
 }
 
-main .section.magazine-article-page .magazine-aside ul a:any-link {
-  display: block;
+main .section.magazine-article-page .magazine-aside .magazine-recent-list a:any-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 120px;
   padding: 8px 16px;
+  border-left: 5px solid #ebebeb;
   color: var(--text-color);
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-main .section.magazine-article-page .magazine-aside ul a:hover,
-main .section.magazine-article-page .magazine-aside ul a:focus-visible {
+main .section.magazine-article-page .magazine-aside .magazine-recent-list a:hover,
+main .section.magazine-article-page .magazine-aside .magazine-recent-list a:focus-visible {
+  border-left-color: var(--dark-color, #202020);
   background-color: var(--button-primary-color, #ffea00);
   text-decoration: none;
 }
@@ -584,7 +656,7 @@ main .section.magazine-article-page .magazine-aside .magazine-recent-title {
 
 main .section.magazine-article-page .magazine-aside .magazine-recent-date {
   display: block;
-  margin-top: 4px;
+  margin-top: 8px;
   font-size: 12px;
   text-transform: uppercase;
   color: #696969;
