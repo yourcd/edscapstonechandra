@@ -1,0 +1,101 @@
+/* Members-only locked tiles (source: cmp-teaser--secure).
+   Title carries a yellow corner ribbon with a lock icon; a READ MORE button
+   sits above the dimmed tile image. */
+
+.cards-locked ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 40px;
+}
+
+.cards-locked > ul > li {
+  margin: 0;
+  padding: 0;
+}
+
+/* body: title + subtitle + read-more */
+.cards-locked .cards-locked-body {
+  position: relative;
+  padding-left: 40px; /* room for the lock ribbon */
+}
+
+/* yellow corner ribbon + lock, anchored to the title */
+.cards-locked .cards-locked-title {
+  position: relative;
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #767676;
+}
+
+.cards-locked .cards-locked-title::before {
+  content: '\1F512'; /* 🔒 padlock */
+  position: absolute;
+  top: -4px;
+  left: -40px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  color: #202020;
+  font-size: 18px;
+  line-height: 1;
+
+  /* yellow triangle in the top-left corner */
+  background: linear-gradient(
+    to top left,
+    transparent 0,
+    transparent 50%,
+    var(--button-primary-color, #ffea00) 50%,
+    var(--button-primary-color, #ffea00) 100%
+  );
+}
+
+.cards-locked .cards-locked-subtitle {
+  margin: 8px 0 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #767676;
+}
+
+/* READ MORE button — grey disabled-looking CTA (source: secure action container) */
+.cards-locked .cards-locked-cta {
+  display: inline-block;
+  margin: 24px 0 0;
+  padding: 14px 35px;
+  background-color: var(--light-color, #f5f5f5);
+  color: #767676;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* dimmed tile image */
+.cards-locked .cards-locked-image {
+  margin-top: 24px;
+  line-height: 0;
+}
+
+.cards-locked .cards-locked-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+@media (width >= 900px) {
+  .cards-locked ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+}
