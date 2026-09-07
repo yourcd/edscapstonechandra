@@ -99,13 +99,19 @@ h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
 /* WKND section headings carry a short yellow underline (source: cmp-title--underline).
-   Scoped to default-content headings so block-internal headings are unaffected. */
+   Scoped to default-content headings so block-internal headings are unaffected.
+   The About Us group headings ("Our Contributors", "WKND Guides") are plain in
+   the source (no underline), so exclude the cards-team section. */
 main .default-content-wrapper h2::after {
   content: '';
   display: block;
   width: 84px;
   padding-top: 8px;
   border-bottom: 2px solid var(--button-primary-color, #ffea00);
+}
+
+main .cards-team-container .default-content-wrapper h2::after {
+  content: none;
 }
 
 p,
