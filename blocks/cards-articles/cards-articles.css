@@ -69,3 +69,41 @@
   text-transform: uppercase;
   color: #696969;
 }
+
+/* --- locked variant: members-only cards (source: cmp-teaser--secure) --- */
+
+/* dim the card image and overlay a yellow corner ribbon with a lock icon */
+.cards-articles.locked > ul > li .cards-articles-card-image {
+  position: relative;
+}
+
+.cards-articles.locked > ul > li .cards-articles-card-image img {
+  opacity: 0.65;
+}
+
+.cards-articles.locked > ul > li .cards-articles-card-image::after {
+  content: '\1F512'; /* 🔒 padlock */
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 64px;
+  height: 64px;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  color: #202020;
+  font-size: 18px;
+  line-height: 1;
+
+  /* yellow triangle occupying the top-right corner */
+  background: linear-gradient(
+    to top right,
+    transparent 0,
+    transparent 50%,
+    var(--button-primary-color, #ffea00) 50%,
+    var(--button-primary-color, #ffea00) 100%
+  );
+}
