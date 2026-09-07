@@ -266,9 +266,22 @@ function decorateMagazineArticle(main) {
   if (article.childElementCount) wrapper.append(article);
   if (aside.childElementCount) wrapper.append(aside);
 
-  // 4. Split each recent-story link into an uppercase title + a muted date so
-  //    the sidebar nav matches the source (capitalised text, yellow hover).
-  aside.querySelectorAll('ul a').forEach((a) => {
+  // 4. Tag the sidebar's lists and download button so they can be styled to
+  //    match the source (cmp-list--upnext / cmp-download).
+  aside.querySelectorAll('ul').forEach((ul) => {
+    const isRecent = !!ul.querySelector('a[href*="/magazine/"]');
+    ul.classList.add(isRecent ? 'magazine-recent-list' : 'magazine-meta-list');
+  });
+
+  // the standalone "Download PDF" link (a bare paragraph, not the h3 title)
+  // becomes the black download button.
+  aside.querySelectorAll('p > a[href*="coredownload"]').forEach((a) => {
+    a.classList.add('magazine-download-button');
+    a.closest('p').classList.add('magazine-download-wrapper');
+  });
+
+  // Split each recent-story link into an uppercase title + a muted date.
+  aside.querySelectorAll('.magazine-recent-list a').forEach((a) => {
     if (!/\/magazine\//.test(a.getAttribute('href') || '')) return;
     const text = a.textContent.trim();
     const m = text.match(/\s+((?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,\s+.+)$/);
