@@ -327,22 +327,30 @@ main .section.dark a:any-link {
 }
 
 /* FAQ two-column layout (source: FAQ/accordion left ~8/12, "Need more help" right ~3/12).
-   Last content wrapper ("Need more help") sits in the right column; everything
-   else (heading, intro, accordion) stacks in the left column. */
+   The FAQ section is named .accordion-faq-container (EDS names a section after the
+   block it contains). Its wrappers, in order, are: default content (heading + intro),
+   the accordion, then default content ("Need more help?"). The last wrapper moves to
+   the right column; the rest stack in the left column. */
 @media (width >= 900px) {
-  main .section.faq-layout > div {
-    grid-column: 1;
-  }
-
-  main .section.faq-layout > div:last-child {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  main .section.faq-layout {
+  main .section.accordion-faq-container {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 8fr 3fr;
     column-gap: 48px;
     align-items: start;
+  }
+
+  main .section.accordion-faq-container > div {
+    grid-column: 1;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  main .section.accordion-faq-container > div:last-child {
+    grid-column: 2;
+    grid-row: 1 / span 99;
+    align-self: start;
   }
 }
