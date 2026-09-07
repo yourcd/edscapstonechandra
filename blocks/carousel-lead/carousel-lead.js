@@ -112,13 +112,19 @@ export default async function decorate(block) {
   block.prepend(slidesWrapper);
 
   let slideIndicators;
+  // control row placed BELOW the image: dots on the left, arrows on the right
+  // (source layout). Appended after the slides so it renders beneath them.
+  let controls;
   if (!isSingleSlide) {
+    controls = document.createElement('div');
+    controls.classList.add('carousel-lead-controls');
+
     const slideIndicatorsNav = document.createElement('nav');
     slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
     slideIndicators = document.createElement('ol');
     slideIndicators.classList.add('carousel-lead-slide-indicators');
     slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
+    controls.append(slideIndicatorsNav);
 
     const slideNavButtons = document.createElement('div');
     slideNavButtons.classList.add('carousel-lead-navigation-buttons');
@@ -127,7 +133,7 @@ export default async function decorate(block) {
       <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
     `;
 
-    container.append(slideNavButtons);
+    controls.append(slideNavButtons);
   }
 
   rows.forEach((row, idx) => {
@@ -145,6 +151,7 @@ export default async function decorate(block) {
   });
 
   container.append(slidesWrapper);
+  if (controls) container.append(controls);
   block.prepend(container);
 
   if (!isSingleSlide) {

@@ -76,65 +76,66 @@ main .section .carousel-lead-wrapper {
   display: none;
 }
 
+/* Source: indicators (dots) float left, nav arrows float right — both sit in a
+   control row below the image at the bottom-right/left. Dots are small dark
+   circles (10px, rgba(0,0,0,.8)); arrows are borderless chevrons. */
 .carousel-lead .carousel-lead-slide-indicators {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px 12px;
-  padding: 12px;
-  background-color: var(--light-color);
+  justify-content: flex-start;
+  gap: 0 14px;
+  margin: 14px 0 0;
+  padding: 0;
   line-height: 0;
 }
 
 .carousel-lead .carousel-lead-slide-indicator button {
-  width: 24px;
-  height: 24px;
+  width: 10px;
+  height: 10px;
   margin: 0;
   padding: 0;
+  border: 0;
   border-radius: 50%;
-  background-color: #dadada;
+  background-color: rgb(0 0 0 / 40%);
   transition: background-color 0.2s;
+  cursor: pointer;
 }
 
 .carousel-lead .carousel-lead-slide-indicator button:disabled,
 .carousel-lead .carousel-lead-slide-indicator button:hover,
 .carousel-lead .carousel-lead-slide-indicator button:focus-visible {
-  background-color: var(--text-color);
+  background-color: rgb(0 0 0 / 80%);
 }
 
+/* control row: dots on the left, arrows on the right, bottom of the carousel */
 .carousel-lead .carousel-lead-navigation-buttons {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
+  position: static;
+  float: right;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  z-index: 1;
+  gap: 16px;
+  margin: 8px 0 0;
+  transform: none;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel-lead .carousel-lead-navigation-buttons button {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 28px;
+  height: 28px;
   margin: 0;
-  border-radius: 50%;
+  border: 0;
+  border-radius: 0;
   padding: 0;
-  background-color: rgb(19 19 19 / 25%);
-  transition: background-color 0.2s;
-}
-
-.carousel-lead .carousel-lead-navigation-buttons button:hover,
-.carousel-lead .carousel-lead-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background-color: transparent;
+  color: var(--text-color, #202020);
+  cursor: pointer;
 }
 
 .carousel-lead .carousel-lead-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid;
+  border: 2px solid currentcolor;
   border-bottom: 0;
   border-left: 0;
   height: 12px;
@@ -150,12 +151,14 @@ main .section .carousel-lead-wrapper {
   left: calc(50% - 2px);
 }
 
-@media (width >= 600px) {
-  .carousel-lead .carousel-lead-navigation-buttons {
-    left: 24px;
-    right: 24px;
-  }
+/* clearfix for the floated control row */
+.carousel-lead .carousel-lead-slides-container::after {
+  content: '';
+  display: block;
+  clear: both;
+}
 
+@media (width >= 600px) {
   .carousel-lead .carousel-lead-slide .carousel-lead-slide-content {
     --slide-content-width: calc((100% - 184px) / 2);
 

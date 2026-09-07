@@ -358,26 +358,45 @@ main .section.dark a:any-link {
   }
 
   /* Row 1 = breadcrumb (full), Row 2 = carousel (full), Row 3 = title (full),
-     Row 4 = specs (left) + tabs (right), Row 5 = share (left, under specs). */
-  main .section.columns-specs-container.tabs-detail-container > div:nth-child(1),
+     Row 4 = specs (left) + tabs (right), Row 5 = share (left, under specs).
+     The title is authored as an <h2>, so match h1/h2; the breadcrumb <nav> is
+     prepended by scripts.js and must also span the full width. */
+  main .section.columns-specs-container.tabs-detail-container > .breadcrumb,
   main .section.columns-specs-container.tabs-detail-container > .carousel-lead-wrapper,
-  main .section.columns-specs-container.tabs-detail-container > .default-content-wrapper:has(h1) {
+  main .section.columns-specs-container.tabs-detail-container > .default-content-wrapper:has(h1),
+  main .section.columns-specs-container.tabs-detail-container > .default-content-wrapper:has(h2) {
     grid-column: 1 / -1;
   }
 
+  /* Body row: specs panel (with "Share" heading) on the left, tabs on the right.
+     Both live in the SAME single auto row and are top-aligned. Keeping tabs in
+     one row track (not a multi-row span) means its top never moves when a
+     shorter/taller tab is selected — the grid has no spare vertical space to
+     redistribute. Any extra tab-panel height simply extends the row downward. */
   main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper {
     grid-column: 1;
     grid-row: 4;
+    align-self: start;
   }
 
   main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper + .default-content-wrapper {
     grid-column: 1;
-    grid-row: 5;
+    grid-row: 4;
+    align-self: start;
   }
 
   main .section.columns-specs-container.tabs-detail-container > .tabs-detail-wrapper {
     grid-column: 2;
-    grid-row: 4 / span 2;
+    grid-row: 4;
+    align-self: start;
+  }
+
+  /* the grid container already supplies max-width + gutters, so the breadcrumb
+     child must not add its own (would double the left inset) */
+  main .section.columns-specs-container.tabs-detail-container > .breadcrumb {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 0 4px;
   }
 }
 
@@ -412,4 +431,51 @@ main .section.dark a:any-link {
     grid-row: 1 / span 99;
     align-self: start;
   }
+}
+
+/* Adventure detail breadcrumb (source: cmp-breadcrumb) — built by scripts.js.
+   Inline uppercase items, 14px, with a yellow ">" separator before each item
+   except the first. */
+main .section .breadcrumb {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 32px 0;
+}
+
+main .breadcrumb .breadcrumb-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+main .breadcrumb .breadcrumb-item {
+  display: inline-block;
+  padding: 0 5px;
+  text-transform: uppercase;
+}
+
+main .breadcrumb .breadcrumb-item:first-child {
+  padding-left: 0;
+}
+
+main .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  content: '\203A'; /* › */
+  margin-right: 10px;
+  color: var(--button-primary-color, #ffea00);
+  font-weight: 700;
+}
+
+main .breadcrumb .breadcrumb-item a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+main .breadcrumb .breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+main .breadcrumb .breadcrumb-current {
+  color: #767676;
 }
