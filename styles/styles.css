@@ -332,6 +332,55 @@ main .section.dark a:any-link {
   color: var(--background-color);
 }
 
+/* Adventure detail two-column layout (source: specs panel + "Share" on the left
+   ~3/12, tabbed body on the right ~9/12). The section contains, in order:
+   breadcrumb, carousel-lead, title (all full-width), then columns-specs +
+   "Share this Adventure" (left column) and tabs-detail (right column). */
+@media (width >= 900px) {
+  main .section.columns-specs-container.tabs-detail-container {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    column-gap: 32px;
+    align-items: start;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 32px;
+  }
+
+  /* wrappers already carry their own gutters via the grid container */
+  main .section.columns-specs-container.tabs-detail-container > div {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Row 1 = breadcrumb (full), Row 2 = carousel (full), Row 3 = title (full),
+     Row 4 = specs (left) + tabs (right), Row 5 = share (left, under specs). */
+  main .section.columns-specs-container.tabs-detail-container > div:nth-child(1),
+  main .section.columns-specs-container.tabs-detail-container > .carousel-lead-wrapper,
+  main .section.columns-specs-container.tabs-detail-container > .default-content-wrapper:has(h1) {
+    grid-column: 1 / -1;
+  }
+
+  main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper + .default-content-wrapper {
+    grid-column: 1;
+    grid-row: 5;
+  }
+
+  main .section.columns-specs-container.tabs-detail-container > .tabs-detail-wrapper {
+    grid-column: 2;
+    grid-row: 4 / span 2;
+  }
+}
+
 /* FAQ two-column layout (source: FAQ/accordion left ~8/12, "Need more help" right ~3/12).
    The FAQ section is named .accordion-faq-container (EDS names a section after the
    block it contains). Its wrappers, in order, are: default content (heading + intro),
