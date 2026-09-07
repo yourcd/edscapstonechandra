@@ -677,18 +677,36 @@ main .section.magazine-article-page .breadcrumb {
 /* author / contributor block at the foot of the article (source: cmp-byline):
    a full-width horizontal rule, then the avatar-less name + occupation on the
    left and dark social icon buttons on the right. */
-main .section.magazine-article-page .magazine-author {
+main .magazine-author {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 16px 24px;
-  margin: 40px 0 0;
-  padding: 40px 0 0;
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 40px 32px 0;
+  box-sizing: border-box;
   border-top: 1px solid #ebebeb;
 }
 
-main .section.magazine-article-page .magazine-author-name {
+/* avatar + name/role sit together on the left */
+main .magazine-author-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+main .magazine-author-avatar {
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+main .magazine-author-name {
   margin: 0 0 4px;
   font-family: var(--heading-font-family);
   font-size: 24px;
@@ -696,19 +714,23 @@ main .section.magazine-article-page .magazine-author-name {
   color: var(--text-color);
 }
 
-main .section.magazine-article-page .magazine-author-role {
+main .magazine-author-name::after {
+  content: none; /* no yellow underline on the byline name */
+}
+
+main .magazine-author-role {
   margin: 0;
   font-size: 12px;
   text-transform: uppercase;
   color: #696969;
 }
 
-main .section.magazine-article-page .magazine-author-socials {
+main .magazine-author-socials {
   display: flex;
   gap: 0;
 }
 
-main .section.magazine-article-page .magazine-author-social:any-link {
+main .magazine-author-social:any-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -718,15 +740,23 @@ main .section.magazine-article-page .magazine-author-social:any-link {
   color: #fff;
 }
 
-main .section.magazine-article-page .magazine-author-social:hover,
-main .section.magazine-article-page .magazine-author-social:focus-visible {
+main .magazine-author-social:hover,
+main .magazine-author-social:focus-visible {
   background-color: #000;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-main .section.magazine-article-page .magazine-author-social img {
+main .magazine-author-social img {
   width: 22px;
   height: 22px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main .magazine-author-avatar img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 /* two-column split at desktop: article ~8fr, sidebar ~3fr. The head elements
