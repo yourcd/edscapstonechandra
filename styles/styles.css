@@ -479,3 +479,140 @@ main .breadcrumb .breadcrumb-item a:hover {
 main .breadcrumb .breadcrumb-current {
   color: #767676;
 }
+
+/* ==========================================================================
+   Magazine article page (source: cmp-article layout)
+   scripts.js restructures the flat content into: full-width head (hero,
+   breadcrumb, title, byline) + a two-column body (.magazine-article left,
+   .magazine-aside right).
+   ========================================================================== */
+
+/* images inside the left column fit the column width */
+main .section.magazine-article-page .magazine-article img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 18px 0;
+}
+
+/* full-bleed hero image at the top of the article */
+main .section.magazine-article-page .default-content-wrapper > p:has(picture:first-child) img {
+  width: 100%;
+  height: auto;
+}
+
+/* article headings use the serif display face like the source */
+main .section.magazine-article-page .magazine-article h1,
+main .section.magazine-article-page .magazine-article h2,
+main .section.magazine-article-page .default-content-wrapper > h1 {
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+}
+
+/* grey quote box with a short yellow underline bar (source: cmp-text--quote) */
+main .section.magazine-article-page .magazine-quote {
+  margin: 18px 0;
+  padding: 18px 14px;
+  background-color: #ebebeb;
+}
+
+main .section.magazine-article-page .magazine-quote blockquote {
+  margin: 0;
+  padding: 14px;
+  font-family: var(--heading-font-family);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+/* the yellow underline sits below the quote text */
+main .section.magazine-article-page .magazine-quote blockquote::after {
+  content: '';
+  display: block;
+  width: 80px;
+  margin-top: 14px;
+  border-bottom: 2px solid var(--button-primary-color, #ffea00);
+}
+
+main .section.magazine-article-page .magazine-quote p {
+  margin: 0;
+}
+
+/* sidebar */
+main .section.magazine-article-page .magazine-aside h5 {
+  margin: 0 0 12px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* recent-stories list (source: cmp-list--upnext) — capitalised titles, muted
+   dates, yellow hover background */
+main .section.magazine-article-page .magazine-aside ul {
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+main .section.magazine-article-page .magazine-aside ul li {
+  margin: 0 0 18px;
+  padding: 0;
+}
+
+main .section.magazine-article-page .magazine-aside ul a:any-link {
+  display: block;
+  padding: 8px 16px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+main .section.magazine-article-page .magazine-aside ul a:hover,
+main .section.magazine-article-page .magazine-aside ul a:focus-visible {
+  background-color: var(--button-primary-color, #ffea00);
+  text-decoration: none;
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-recent-title {
+  display: block;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+main .section.magazine-article-page .magazine-aside .magazine-recent-date {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+/* two-column split at desktop: article ~8fr, sidebar ~3fr. The head elements
+   stay full-width (grid-column 1 / -1) above the two columns. */
+@media (width >= 900px) {
+  main .section.magazine-article-page .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 8fr 3fr;
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  main .section.magazine-article-page .default-content-wrapper > p:has(picture),
+  main .section.magazine-article-page .default-content-wrapper > nav.breadcrumb,
+  main .section.magazine-article-page .default-content-wrapper > h1,
+  main .section.magazine-article-page .default-content-wrapper > h4 {
+    grid-column: 1 / -1;
+  }
+
+  main .section.magazine-article-page .magazine-article {
+    grid-column: 1;
+  }
+
+  main .section.magazine-article-page .magazine-aside {
+    grid-column: 2;
+    align-self: start;
+  }
+}
