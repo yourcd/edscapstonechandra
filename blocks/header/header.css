@@ -11,6 +11,9 @@ header {
 }
 
 header .nav-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
   width: 100%;
   background-color: var(--background-color, #fff);
 }
@@ -172,9 +175,11 @@ header nav .nav-sections ul {
   padding: 0;
 }
 
-header nav .nav-sections li { padding: 12px 0; }
+header nav .nav-sections li { padding: 0; }
 
 header nav .nav-sections a {
+  display: inline-block;
+  padding: 15px 17px;
   color: var(--text-color, #202020);
   font-size: 14px;
   font-weight: 400;
@@ -204,7 +209,11 @@ header nav .nav-main .nav-search input::placeholder {
   text-transform: uppercase;
 }
 
-header nav .nav-sections a:hover { text-decoration: underline; }
+header nav .nav-sections a:hover,
+header nav .nav-sections a:focus {
+  background-color: var(--button-primary-color, #ffea00);
+  text-decoration: none;
+}
 
 /* utility strip tools (placed after lower-specificity rules for lint order) */
 header nav .nav-utility .nav-tools p { margin: 0; }
@@ -260,10 +269,8 @@ header nav[aria-expanded='false'] .nav-main .nav-search {
   header nav .nav-sections ul {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 4px;
   }
-
-  header nav .nav-sections li { padding: 0; }
 
   header nav .nav-main .nav-search {
     grid-area: search;
