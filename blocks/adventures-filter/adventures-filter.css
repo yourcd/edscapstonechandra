@@ -1,0 +1,33 @@
+/* Adventures category filter — horizontal tab bar.
+   Matches WKND source: uppercase tabs, black background on hover + active. */
+
+.adventures-filter .adventures-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.adventures-filter .adventures-filter-tab {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: var(--text-color, #202020);
+  font: inherit;
+  font-size: 14px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.adventures-filter .adventures-filter-tab:hover,
+.adventures-filter .adventures-filter-tab:focus,
+.adventures-filter .adventures-filter-tab.active {
+  background-color: var(--dark-color, #202020);
+  color: #fff;
+  outline: none;
+}

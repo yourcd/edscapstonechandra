@@ -4,10 +4,7 @@
       "name": "content-overview",
       "urls": [
         "https://wknd.site/ca/en/about-us.html",
-        "https://wknd.site/ca/en/magazine.html",
-        "https://wknd.site/ca/en/magazine/members-only.html",
-        "https://wknd.site/us/en/about-us.html",
-        "https://wknd.site/us/en/magazine.html"
+        "https://wknd.site/us/en/about-us.html"
       ],
       "coverageGaps": [],
       "description": "Overview/landing page combining a hero header with mixed content blocks and card sections",
@@ -95,6 +92,12 @@
           "name": "hero-intro",
           "instances": [
             "div.teaser.cmp-teaser--hero"
+          ]
+        },
+        {
+          "name": "adventures-filter",
+          "instances": [
+            "div.cmp-tabs__tablist"
           ]
         },
         {
@@ -198,6 +201,30 @@
       "description": "Editorial article layout with hero image, byline/heading, and multi-section rich-text body",
       "blocks": [],
       "representativeUrl": "https://wknd.site/us/en/magazine/arctic-surfing.html"
+    },
+    {
+      "name": "magazine-listing",
+      "urls": [
+        "https://wknd.site/ca/en/magazine.html",
+        "https://wknd.site/ca/en/magazine/members-only.html",
+        "https://wknd.site/us/en/magazine.html"
+      ],
+      "description": "Magazine category listing: featured article callout + grid of article teaser cards",
+      "blocks": [
+        {
+          "name": "columns-featured",
+          "instances": [
+            "div.teaser.cmp-teaser--featured"
+          ]
+        },
+        {
+          "name": "cards-articles",
+          "instances": [
+            "div.image-list.list"
+          ]
+        }
+      ],
+      "representativeUrl": "https://wknd.site/us/en/magazine.html"
     }
   ],
   "metadata": {
