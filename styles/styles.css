@@ -98,6 +98,16 @@ h4 { font-size: var(--heading-font-size-m); }
 h5 { font-size: var(--heading-font-size-s); }
 h6 { font-size: var(--heading-font-size-xs); }
 
+/* WKND section headings carry a short yellow underline (source: cmp-title--underline).
+   Scoped to default-content headings so block-internal headings are unaffected. */
+main .default-content-wrapper h2::after {
+  content: '';
+  display: block;
+  width: 84px;
+  padding-top: 8px;
+  border-bottom: 2px solid var(--button-primary-color, #ffea00);
+}
+
 p,
 dl,
 ol,
@@ -314,4 +324,25 @@ main .section.dark {
 
 main .section.dark a:any-link {
   color: var(--background-color);
+}
+
+/* FAQ two-column layout (source: FAQ/accordion left ~8/12, "Need more help" right ~3/12).
+   Last content wrapper ("Need more help") sits in the right column; everything
+   else (heading, intro, accordion) stacks in the left column. */
+@media (width >= 900px) {
+  main .section.faq-layout > div {
+    grid-column: 1;
+  }
+
+  main .section.faq-layout > div:last-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  main .section.faq-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 48px;
+    align-items: start;
+  }
 }
