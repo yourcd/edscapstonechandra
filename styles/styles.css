@@ -339,7 +339,15 @@ main .section.dark a:any-link {
 @media (width >= 900px) {
   main .section.columns-specs-container.tabs-detail-container {
     display: grid;
-    grid-template-columns: 3fr 9fr;
+
+    /* Named areas make the body placement deterministic: the specs panel and the
+       tabbed body share the same top row, so they are guaranteed parallel. */
+    grid-template:
+      'breadcrumb breadcrumb' auto
+      'hero       hero' auto
+      'title      title' auto
+      'specs      tabs' auto
+      'share      tabs' 1fr / 3fr 9fr;
     column-gap: 32px;
     align-items: start;
     box-sizing: border-box;
@@ -357,13 +365,10 @@ main .section.dark a:any-link {
     padding-right: 0;
   }
 
-  /* Row 1 = breadcrumb (full), Row 2 = carousel (full), Row 3 = title (full),
-     Row 4 = specs (left) + tabs (right), Row 5 = share (left, under specs).
-     The title is authored as an <h2>, so match h1/h2; the breadcrumb <nav> is
-     prepended by scripts.js and must also span the full width. */
+  /* Full-width head rows. The title is authored as an <h1>/<h2>; the breadcrumb
+     <nav> is prepended by scripts.js. */
   main .section.columns-specs-container.tabs-detail-container > .breadcrumb {
-    grid-column: 1 / -1;
-    grid-row: 1;
+    grid-area: breadcrumb;
 
     /* the grid container already supplies max-width + gutters, so the breadcrumb
        child must not add its own (would double the left inset) */
@@ -373,36 +378,29 @@ main .section.dark a:any-link {
   }
 
   main .section.columns-specs-container.tabs-detail-container > .carousel-lead-wrapper {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    grid-area: hero;
   }
 
   main .section.columns-specs-container.tabs-detail-container > .default-content-wrapper:has(h1),
   main .section.columns-specs-container.tabs-detail-container > .default-content-wrapper:has(h2) {
-    grid-column: 1 / -1;
-    grid-row: 3;
+    grid-area: title;
   }
 
-  /* Body: specs panel and the tall tabbed body share row 4 (left/right columns),
-     both top-aligned so they begin at the same y. Row 4 sizes to the taller
-     item (the tabs), so the specs panel — placed with align-self:start — sits at
-     the top of the row, parallel to the tab strip. "Share this Adventure" drops
-     to row 5, under the left column. */
+  /* Body: the specs panel (left) and the tabbed body (right) share the same top
+     row via named areas, so they start at the same y — parallel. "Share this
+     Adventure" sits in its own area under the specs panel; the tabs span both. */
   main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper {
-    grid-column: 1;
-    grid-row: 4;
+    grid-area: specs;
     align-self: start;
   }
 
   main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper + .default-content-wrapper {
-    grid-column: 1;
-    grid-row: 5;
+    grid-area: share;
     align-self: start;
   }
 
   main .section.columns-specs-container.tabs-detail-container > .tabs-detail-wrapper {
-    grid-column: 2;
-    grid-row: 4;
+    grid-area: tabs;
     align-self: start;
   }
 }
