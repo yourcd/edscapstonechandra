@@ -11,6 +11,7 @@ import {
   loadCSS,
   buildBlock,
 } from './aem.js';
+import { getLocaleItems } from './locale.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -178,6 +179,58 @@ function buildBreadcrumb(main) {
 }
 
 /**
+ * Formats a Unix-seconds timestamp as the source's recent-stories date, e.g.
+ * "Wednesday, 30 Sep 2020".
+ * @param {number} seconds Unix timestamp in seconds
+ * @returns {string} formatted date (empty string when unavailable)
+ */
+function formatRecentDate(seconds) {
+  if (!seconds) return '';
+  const d = new Date(seconds * 1000);
+  return d.toLocaleDateString('en-GB', {
+    weekday: 'long', day: 'numeric', month: 'short', year: 'numeric',
+  }).replace(',', '');
+}
+
+/**
+ * Fills the article sidebar's "recent stories" list from the query-index: the
+ * current locale's magazine articles, most recent first, excluding the article
+ * being viewed. Leaves the authored list in place if the index is empty or the
+ * fetch fails (graceful fallback).
+ * @param {Element} aside the magazine sidebar element
+ */
+async function populateRecentStories(aside) {
+  const list = aside.querySelector('.magazine-recent-list');
+  if (!list) return;
+  const items = await getLocaleItems('magazine');
+  if (!items.length) return; // keep authored fallback
+
+  const currentPath = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '');
+  const recent = items.filter((item) => item.path !== currentPath).slice(0, 4);
+  if (!recent.length) return;
+
+  list.textContent = '';
+  recent.forEach((item) => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = item.path;
+    const title = document.createElement('span');
+    title.className = 'magazine-recent-title';
+    title.textContent = item.title || '';
+    a.append(title);
+    const date = formatRecentDate(item.lastmodified);
+    if (date) {
+      const dateSpan = document.createElement('span');
+      dateSpan.className = 'magazine-recent-date';
+      dateSpan.textContent = date;
+      a.append(dateSpan);
+    }
+    li.append(a);
+    list.append(li);
+  });
+}
+
+/**
  * Restructures a magazine article page to match the source layout: a full-width
  * head (hero, breadcrumb, title, byline) followed by a two-column body — the
  * article on the left and a sidebar (Share / Download PDF / recent stories) on
@@ -280,9 +333,9 @@ function decorateMagazineArticle(main) {
     a.closest('p').classList.add('magazine-download-wrapper');
   });
 
-  // Split each recent-story link into an uppercase title + a muted date.
-  aside.querySelectorAll('.magazine-recent-list a').forEach((a) => {
-    if (!/\/magazine\//.test(a.getAttribute('href') || '')) return;
+  // Rewrite each recent-story link as an uppercase title + a muted date. Falls
+  // back to the authored text; the dynamic pass (below) replaces the list.
+  const splitRecentLink = (a) => {
     const text = a.textContent.trim();
     const m = text.match(/\s+((?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,\s+.+)$/);
     a.textContent = '';
@@ -296,7 +349,16 @@ function decorateMagazineArticle(main) {
       dateSpan.textContent = m[1].trim();
       a.append(dateSpan);
     }
+  };
+  aside.querySelectorAll('.magazine-recent-list a').forEach((a) => {
+    if (/\/magazine\//.test(a.getAttribute('href') || '')) splitRecentLink(a);
   });
+
+  // 5. Populate the "recent stories" sidebar list dynamically from the query
+  //    index — the current locale's magazine articles, most recent first,
+  //    excluding the current article. Mirrors the dynamic listing grids so a
+  //    newly published article shows up here too.
+  populateRecentStories(aside);
 }
 
 /**
