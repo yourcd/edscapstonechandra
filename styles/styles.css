@@ -383,12 +383,11 @@ main .section.dark a:any-link {
     grid-row: 3;
   }
 
-  /* Left column stacks the specs panel (row 4) then the "Share this Adventure"
-     heading (row 5); the tabbed body fills the right column and spans both rows.
-     All three are top-aligned (align-self: start) so the specs panel and the
-     tabs begin at the same y. The tabs-detail block keeps a constant height (its
-     panels are stacked internally), so spanning two rows no longer shifts the
-     tab strip when a different tab is selected. */
+  /* Body: specs panel and the tall tabbed body share row 4 (left/right columns),
+     both top-aligned so they begin at the same y. Row 4 sizes to the taller
+     item (the tabs), so the specs panel — placed with align-self:start — sits at
+     the top of the row, parallel to the tab strip. "Share this Adventure" drops
+     to row 5, under the left column. */
   main .section.columns-specs-container.tabs-detail-container > .columns-specs-wrapper {
     grid-column: 1;
     grid-row: 4;
@@ -403,7 +402,7 @@ main .section.dark a:any-link {
 
   main .section.columns-specs-container.tabs-detail-container > .tabs-detail-wrapper {
     grid-column: 2;
-    grid-row: 4 / span 2;
+    grid-row: 4;
     align-self: start;
   }
 }

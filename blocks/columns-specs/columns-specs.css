@@ -3,10 +3,17 @@
 /* Design extracted from WKND source (contentfragment--elements, dt/dd list). */
 
 .columns-specs {
-  margin: 18px 0;
+  margin: 0 0 18px;
   color: var(--text-color);
   font-family: var(--body-font-family);
   max-width: 263px; /* narrow sidebar panel */
+}
+
+/* The adventure name is already the page H1; the source spec panel starts at the
+   first spec (ACTIVITY), so hide the redundant repeated title so the panel
+   top-aligns with the tabbed component beside it. */
+.columns-specs .columns-specs-title {
+  display: none;
 }
 
 /* --- spec pair rows: label above value, left accent bar --- */
@@ -51,12 +58,3 @@
   padding: 7px 0 0;
 }
 
-/* --- optional heading row (authored title cell, no label/value list) --- */
-.columns-specs .columns-specs-title {
-  display: flex;
-  flex-direction: column;
-}
-
-.columns-specs .columns-specs-title h3 {
-  margin: 0 0 0.25em;
-}
