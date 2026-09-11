@@ -11,7 +11,7 @@ footer .footer-inner {
   box-sizing: border-box;
   max-width: 1200px;
   margin: auto;
-  padding: 40px 24px;
+  padding: 32px 24px;
   display: grid;
   gap: 24px;
 }
@@ -19,6 +19,10 @@ footer .footer-inner {
 footer .footer-inner p { margin: 0 0 8px; }
 
 /* brand */
+footer .footer-brand {
+  margin: 0;
+}
+
 footer .footer-brand img {
   width: 128px;
   height: auto;
@@ -31,21 +35,33 @@ footer .footer-nav ul {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 8px 32px;
 }
 
 footer .footer-nav a {
   color: #ebebeb;
   font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
 }
 
-/* social */
+/* social — "Follow Us" label + icon row */
+footer .footer-social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 footer .footer-social h4 {
-  margin: 0 0 12px;
+  margin: 0;
   color: #ebebeb;
   font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 footer .footer-social ul {
@@ -53,29 +69,35 @@ footer .footer-social ul {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 16px;
+  gap: 0;
 }
 
 footer .footer-social a {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
   color: #ebebeb;
 }
 
+/* the shared social SVGs are fill="currentColor" (black); force white so they
+   are visible on the dark footer */
 footer .footer-social img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
 }
 
 /* legal / copyright */
-footer .footer-legal {
-  border-top: 1px solid rgb(235 235 235 / 25%);
-  padding-top: 24px;
-}
-
 footer .footer-legal p {
   color: #f7f7f7;
   font-size: 12px;
   line-height: 1.5;
+}
+
+footer .footer-legal p:first-child {
+  margin-bottom: 16px;
 }
 
 footer .footer-legal a {
@@ -87,8 +109,33 @@ footer .footer-nav a:hover { text-decoration: underline; }
 
 footer .footer-social a:hover { opacity: 0.7; }
 
+/* Desktop: logo + nav + Follow-Us(right-aligned) on one row; legal below. */
 @media (width >= 900px) {
   footer .footer-inner {
-    padding: 40px 32px;
+    padding: 32px;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px 40px;
+  }
+
+  footer .footer-brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  footer .footer-nav {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  footer .footer-social {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  footer .footer-legal {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 }
