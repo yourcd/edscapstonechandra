@@ -5,6 +5,10 @@ footer {
   background-color: var(--dark-color, #202020);
   color: #ebebeb;
   font-family: var(--body-font-family);
+
+  /* The dark bar is inset from the page edges (source: left/right margins),
+     not full-bleed. */
+  margin: 0 16px 16px;
 }
 
 footer .footer-inner {
