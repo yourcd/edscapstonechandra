@@ -5,13 +5,25 @@
  */
 export default async function decorate(block) {
   // metadata-independent dual-fetch: /content first (localhost), then root (DA/EDS prod)
+  let base = '/content/';
   let resp = await fetch('/content/footer.plain.html');
-  if (!resp.ok) resp = await fetch('/footer.plain.html');
+  if (!resp.ok) {
+    base = '/';
+    resp = await fetch('/footer.plain.html');
+  }
   if (!resp.ok) return;
   const html = await resp.text();
 
   const fragment = document.createElement('div');
   fragment.innerHTML = html;
+
+  // The fragment's image paths are relative to the fragment (e.g. images/…),
+  // which would otherwise resolve against the current page URL. Re-root them to
+  // the fragment's own directory so the logo and social icons load everywhere.
+  fragment.querySelectorAll('img[src]').forEach((img) => {
+    const src = img.getAttribute('src');
+    if (src && !/^(https?:|\/|data:)/.test(src)) img.setAttribute('src', `${base}${src}`);
+  });
 
   block.textContent = '';
   const footer = document.createElement('div');
