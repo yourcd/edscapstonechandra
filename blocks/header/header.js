@@ -82,9 +82,10 @@ function decorateLocale(localeSection) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // metadata-independent dual-fetch: /content first (localhost), then root (DA/EDS prod)
-  let resp = await fetch('/content/nav.plain.html');
-  if (!resp.ok) resp = await fetch('/nav.plain.html');
+  // The nav fragment is served from the site root on both localhost and prod
+  // (the /content prefix is not part of the served URL), so fetch it directly —
+  // an earlier /content/ attempt only ever 404s in prod and wastes a round trip.
+  const resp = await fetch('/nav.plain.html');
   if (!resp.ok) return;
   const html = await resp.text();
 

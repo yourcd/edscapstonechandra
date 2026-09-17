@@ -36,4 +36,8 @@
 
   /* nav height */
   --nav-height: 88px;
+
+  /* full header height = utility strip (38px) + main nav row (--nav-height);
+     used to reserve space before the header block hydrates (avoids layout shift) */
+  --header-height: 126px;
 }

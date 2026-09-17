@@ -64,7 +64,9 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height);
+  /* reserve the full two-row header height up front so the page doesn't shift
+     when the header block hydrates (utility strip + main nav row) */
+  min-height: var(--header-height, 126px);
 }
 
 header .header,
