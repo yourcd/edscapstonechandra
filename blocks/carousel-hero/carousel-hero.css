@@ -76,6 +76,9 @@
   text-align: left;
 }
 
+/* the first slide's heading is authored as an <h1> (the page's single h1 for
+   SEO/a11y); the rest are <h2>. Style both identically as the hero heading. */
+.carousel-hero .carousel-hero-slide-content h1,
 .carousel-hero .carousel-hero-slide-content h2 {
   margin: 18px 0 0;
   font-family: var(--heading-font-family);
@@ -226,6 +229,7 @@
   }
 
   /* the white card: only as wide as ~half the hero, bottom-left inset */
+  .carousel-hero .carousel-hero-slide-content h1,
   .carousel-hero .carousel-hero-slide-content h2 {
     background-color: #fff;
     margin: 0;
