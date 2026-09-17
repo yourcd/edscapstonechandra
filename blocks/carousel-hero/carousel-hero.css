@@ -66,6 +66,7 @@
 .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
   position: static;
   z-index: auto;
+  box-sizing: border-box; /* keep the 24px padding inside the 100% width (no 320px overflow) */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -203,8 +204,45 @@
     aspect-ratio: 2 / 1;
   }
 
+  /* Desktop: the copy sits in a white panel overlaid on the lower-left of the
+     image (source hero treatment), rather than stacked beneath it. The slide is
+     the positioning context; the content is pinned to the bottom, centred to the
+     1200px grid, and rendered as a white card that hugs the lower-left. */
+  .carousel-hero .carousel-hero-slide {
+    position: relative;
+  }
+
   .carousel-hero .carousel-hero-slide .carousel-hero-slide-content {
+    position: absolute;
+    inset: auto 0 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+
+    /* transparent outer wrapper spanning the grid; the white card is the inner
+       block, sized to ~half width and pinned left */
+    background-color: transparent;
     padding: 0 32px;
+  }
+
+  /* the white card: only as wide as ~half the hero, bottom-left inset */
+  .carousel-hero .carousel-hero-slide-content h2 {
+    background-color: #fff;
+    margin: 0;
+    padding: 28px 32px 0;
+    width: max-content;
+    max-width: 55%;
+  }
+
+  .carousel-hero .carousel-hero-slide-content p {
+    background-color: #fff;
+    margin: 0;
+    padding: 8px 32px 0;
+    max-width: 55%;
+  }
+
+  .carousel-hero .carousel-hero-slide-content p:has(> a:only-child) {
+    padding: 18px 32px 32px;
   }
 
   .carousel-hero .carousel-hero-navigation-buttons {
