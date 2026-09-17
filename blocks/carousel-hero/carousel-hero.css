@@ -207,10 +207,11 @@
     aspect-ratio: 2 / 1;
   }
 
-  /* Desktop: the copy sits in a white panel overlaid on the lower-left of the
-     image (source hero treatment), rather than stacked beneath it. The slide is
-     the positioning context; the content is pinned to the bottom, centred to the
-     1200px grid, and rendered as a white card that hugs the lower-left. */
+  /* Desktop: the copy sits in a single white panel overlaid on the lower part
+     of the image (source hero treatment), rather than stacked beneath it. The
+     slide is the positioning context; the panel is pinned to the bottom, centred
+     to the 1200px grid, spans the full content width, and carries ONE continuous
+     white background behind the heading, copy and CTA. */
   .carousel-hero .carousel-hero-slide {
     position: relative;
   }
@@ -221,32 +222,32 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-
-    /* transparent outer wrapper spanning the grid; the white card is the inner
-       block, sized to ~half width and pinned left */
-    background-color: transparent;
-    padding: 0 32px;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 0 28px;
   }
 
-  /* the white card: only as wide as ~half the hero, bottom-left inset */
+  /* elements sit transparently on the shared white panel; vertical rhythm comes
+     from their margins (18px top on the heading, 18px around the CTA) */
   .carousel-hero .carousel-hero-slide-content h1,
   .carousel-hero .carousel-hero-slide-content h2 {
-    background-color: #fff;
-    margin: 0;
-    padding: 28px 32px 0;
-    width: max-content;
-    max-width: 55%;
+    background-color: transparent;
+    margin: 18px 0 0;
+    padding: 0;
+    width: auto;
+    max-width: none;
   }
 
   .carousel-hero .carousel-hero-slide-content p {
-    background-color: #fff;
+    background-color: transparent;
     margin: 0;
-    padding: 8px 32px 0;
-    max-width: 55%;
+    padding: 0;
+    max-width: none;
   }
 
   .carousel-hero .carousel-hero-slide-content p:has(> a:only-child) {
-    padding: 18px 32px 32px;
+    margin: 18px 0;
+    padding: 0;
   }
 
   .carousel-hero .carousel-hero-navigation-buttons {
