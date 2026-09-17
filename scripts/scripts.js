@@ -434,7 +434,8 @@ function decorateMagazineByline(main) {
       link.setAttribute('aria-label', link.textContent.trim());
       link.textContent = '';
       const img = document.createElement('img');
-      img.src = `/content/images/social-${key}.svg`;
+      // published at the site root (/images/…); the /content prefix 404s in prod
+      img.src = `/images/social-${key}.svg`;
       img.alt = key;
       img.loading = 'lazy';
       link.append(img);
