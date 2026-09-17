@@ -12,7 +12,11 @@ header {
   position: sticky;
   top: 0;
   z-index: 1030;
+
+  /* size to content, but keep the reserved height (styles.css min-height) so the
+     pre-hydration box matches the loaded two-row header — no layout shift */
   height: auto;
+  min-height: var(--header-height, 126px);
 }
 
 header .nav-wrapper {
