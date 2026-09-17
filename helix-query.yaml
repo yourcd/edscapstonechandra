@@ -1,0 +1,39 @@
+# Query index definition for the WKND site (edscapstonechandra).
+#
+# NOTE: In this project the authoritative query-index configuration lives in the
+# site config at https://tools.aem.live/tools/query-index/. This file is checked
+# in as a co-located, human-readable reference of that definition so the index
+# shape lives alongside the code that depends on it (e.g. cards-articles,
+# magazine recent-stories, next-adventures listings, which read query-index.json
+# and use the `lastmodified` field). Editing this file does not by itself change
+# the served index — mirror any change into the site config too.
+#
+# Derived from the live index at
+# https://main--edscapstonechandra--yourcd.aem.live/query-index.json
+# columns: path, title, lastmodified, description, image, category
+
+version: 1
+
+indices:
+  wknd:
+    include:
+      - '/**'
+    exclude:
+      - '/drafts/**'
+    target: /query-index.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: attribute(el, 'content')
+      category:
+        select: head > meta[name="category"]
+        value: attribute(el, 'content')
+      lastmodified:
+        select: none
+        value: parseTimestamp(headers('last-modified'), 'ddd, DD MMM YYYY hh:mm:ss GMT')
