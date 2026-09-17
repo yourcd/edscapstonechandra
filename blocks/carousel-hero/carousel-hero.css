@@ -14,10 +14,6 @@
   position: relative;
 }
 
-.carousel-hero .carousel-hero-slides-container {
-  position: relative;
-}
-
 .carousel-hero .carousel-hero-slides,
 .carousel-hero .carousel-hero-slide-indicators {
   list-style: none;
@@ -158,10 +154,13 @@
   background-color: rgb(0 0 0 / 80%);
 }
 
-/* Navigation arrows — small black chevrons at the bottom-right. */
+/* Navigation arrows — small black chevrons in the control bar BELOW the image,
+   right-aligned and vertically centred on the same line as the indicator dots
+   (matches source; keeps them off the photo so they never disappear). */
 .carousel-hero .carousel-hero-navigation-buttons {
   position: absolute;
-  inset: auto 24px 6px auto;
+  inset: auto 24px 0 auto;
+  height: 34px;
   transform: none;
   display: flex;
   align-items: center;
@@ -207,10 +206,11 @@
     aspect-ratio: 2 / 1;
   }
 
-  /* Desktop: the copy sits in a white panel overlaid on the lower-left of the
-     image (source hero treatment), rather than stacked beneath it. The slide is
-     the positioning context; the content is pinned to the bottom, centred to the
-     1200px grid, and rendered as a white card that hugs the lower-left. */
+  /* Desktop: the copy sits in a single white panel that overlaps the lower part
+     of the image (source hero treatment), rather than stacked beneath it. The
+     slide is the positioning context; the panel is pinned to the bottom, centred
+     to the 1200px grid, spans the full content width, and carries ONE continuous
+     white background behind the heading, copy and CTA. */
   .carousel-hero .carousel-hero-slide {
     position: relative;
   }
@@ -221,32 +221,32 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-
-    /* transparent outer wrapper spanning the grid; the white card is the inner
-       block, sized to ~half width and pinned left */
-    background-color: transparent;
-    padding: 0 32px;
+    max-width: 1200px;
+    background-color: #fff;
+    padding: 28px;
   }
 
-  /* the white card: only as wide as ~half the hero, bottom-left inset */
+  /* elements sit transparently on the shared white panel; vertical rhythm comes
+     from their own margins */
   .carousel-hero .carousel-hero-slide-content h1,
   .carousel-hero .carousel-hero-slide-content h2 {
-    background-color: #fff;
+    background-color: transparent;
     margin: 0;
-    padding: 28px 32px 0;
-    width: max-content;
-    max-width: 55%;
+    padding: 0;
+    width: auto;
+    max-width: none;
   }
 
   .carousel-hero .carousel-hero-slide-content p {
-    background-color: #fff;
-    margin: 0;
-    padding: 8px 32px 0;
-    max-width: 55%;
+    background-color: transparent;
+    margin: 8px 0 0;
+    padding: 0;
+    max-width: none;
   }
 
   .carousel-hero .carousel-hero-slide-content p:has(> a:only-child) {
-    padding: 18px 32px 32px;
+    margin: 18px 0 0;
+    padding: 0;
   }
 
   .carousel-hero .carousel-hero-navigation-buttons {
